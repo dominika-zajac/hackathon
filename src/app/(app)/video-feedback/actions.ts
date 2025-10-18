@@ -12,7 +12,7 @@ const toDataURI = (buffer: Buffer, mimeType: string): string =>
   `data:${mimeType};base64,${buffer.toString('base64')}`;
 
 const videoFeedbackSchema = z.object({
-  video: z.instanceof(File),
+  media: z.instanceof(File),
   feedbackRequest: z.string(),
 });
 
@@ -21,21 +21,21 @@ export async function getFeedback(
   formData: FormData
 ): Promise<State> {
   const validation = videoFeedbackSchema.safeParse({
-    video: formData.get('video'),
+    media: formData.get('media'),
     feedbackRequest: formData.get('feedbackRequest'),
   });
 
   if (!validation.success) {
-    return { error: validation.error.flatten().fieldErrors.video?.[0] || 'Invalid input.' };
+    return { error: validation.error.flatten().fieldErrors.media?.[0] || 'Invalid input.' };
   }
 
   try {
-    const { video, feedbackRequest } = validation.data;
-    const videoBuffer = Buffer.from(await video.arrayBuffer());
-    const videoDataUri = toDataURI(videoBuffer, video.type);
+    const { media, feedbackRequest } = validation.data;
+    const mediaBuffer = Buffer.from(await media.arrayBuffer());
+    const mediaDataUri = toDataURI(mediaBuffer, media.type);
 
     const result = await summarizeVideoFeedback({
-      videoDataUri,
+      mediaDataUri,
       feedbackRequest,
     });
     return { summary: result.summary };

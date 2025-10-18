@@ -12,17 +12,17 @@ import {ai} from '@/ai/genkit';
 import {z} from 'zod';
 
 const SummarizeVideoFeedbackInputSchema = z.object({
-  videoDataUri: z
+  mediaDataUri: z
     .string()
     .describe(
-      "A video, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+      "A video or audio file, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
-  feedbackRequest: z.string().describe('The specific feedback requested for the video.'),
+  feedbackRequest: z.string().describe('The specific feedback requested for the video or audio.'),
 });
 export type SummarizeVideoFeedbackInput = z.infer<typeof SummarizeVideoFeedbackInputSchema>;
 
 const SummarizeVideoFeedbackOutputSchema = z.object({
-  summary: z.string().describe('The AI-powered summary of key feedback points from the video.'),
+  summary: z.string().describe('The AI-powered summary of key feedback points from the video or audio.'),
 });
 export type SummarizeVideoFeedbackOutput = z.infer<typeof SummarizeVideoFeedbackOutputSchema>;
 
@@ -34,12 +34,12 @@ const prompt = ai.definePrompt({
   name: 'summarizeVideoFeedbackPrompt',
   input: {schema: SummarizeVideoFeedbackInputSchema},
   output: {schema: SummarizeVideoFeedbackOutputSchema},
-  prompt: `You are an AI assistant that provides concise and actionable feedback on videos.
+  prompt: `You are an AI assistant that provides concise and actionable feedback on video or audio.
 
-You will analyze the video and provide a summary of key feedback points, focusing on areas for improvement as requested by the user.
+You will analyze the media and provide a summary of key feedback points, focusing on areas for improvement as requested by the user. If the user asks to "check the speak errors of user", you should analyze the audio track and identify any grammar mistakes, filler words, or awkward phrasing, and suggest improvements.
 
 User's feedback request: {{{feedbackRequest}}}
-Video: {{media url=videoDataUri}}`,
+Media: {{media url=mediaDataUri}}`,
 });
 
 const summarizeVideoFeedbackFlow = ai.defineFlow(

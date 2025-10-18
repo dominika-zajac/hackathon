@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Library, LoaderCircle } from 'lucide-react';
+import { BookOpen, Library, LoaderCircle } from 'lucide-react';
 import React from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
@@ -121,7 +121,7 @@ export default function ReadingClient() {
                         placeholder="e.g., 'I enjoy articles on AI, design systems, and serverless architecture.'"
                         {...field}
                       />
-FormControl>
+                    </FormControl>
                     <FormDescription>
                       What topics or authors have you enjoyed in the past?
                     </FormDescription>
