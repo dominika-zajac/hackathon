@@ -1,0 +1,27 @@
+import { Logo } from '@/components/logo';
+import { MainNav } from '@/components/main-nav';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarInset,
+  SidebarProvider,
+} from '@/components/ui/sidebar';
+
+export default function AppLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <SidebarProvider>
+      <Sidebar style={{ '--sidebar-width': '18rem' } as React.CSSProperties}>
+        <SidebarHeader>
+          <Logo />
+        </SidebarHeader>
+        <SidebarContent>
+          <MainNav />
+        </SidebarContent>
+      </Sidebar>
+      <SidebarInset>
+        <div className="min-h-screen animate-in fade-in-50 duration-500">{children}</div>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}
