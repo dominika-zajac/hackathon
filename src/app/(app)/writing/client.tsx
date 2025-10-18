@@ -2,8 +2,8 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle, Pilcrow } from 'lucide-react';
-import React from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import React, { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -55,7 +55,7 @@ function SubmitButton() {
 }
 
 export default function WritingClient() {
-  const [state, formAction] = useFormState<State, FormData>(adaptTone, null);
+  const [state, formAction] = useActionState<State, FormData>(adaptTone, null);
   const { toast } = useToast();
   const formRef = React.useRef<HTMLFormElement>(null);
 

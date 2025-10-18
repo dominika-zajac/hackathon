@@ -2,8 +2,8 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { BookOpen, Library, LoaderCircle } from 'lucide-react';
-import React from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import React, { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -51,7 +51,7 @@ function SubmitButton() {
 }
 
 export default function ReadingClient() {
-  const [state, formAction] = useFormState<State, FormData>(
+  const [state, formAction] = useActionState<State, FormData>(
     getSuggestions,
     null
   );

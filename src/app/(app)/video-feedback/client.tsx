@@ -2,8 +2,8 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle, Upload, Wand2 } from 'lucide-react';
-import React from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import React, { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -59,7 +59,7 @@ function SubmitButton() {
 }
 
 export default function VideoFeedbackClient() {
-  const [state, formAction] = useFormState<State, FormData>(getFeedback, null);
+  const [state, formAction] = useActionState<State, FormData>(getFeedback, null);
   const { toast } = useToast();
   const formRef = React.useRef<HTMLFormElement>(null);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
