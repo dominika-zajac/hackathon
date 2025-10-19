@@ -1,0 +1,101 @@
+"use client";
+
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { cn } from '@/lib/utils';
+
+const languages = [
+  {
+    code: 'en',
+    name: 'English',
+    flag: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="24" height="12">
+        <clipPath id="s">
+          <path d="M0,0 v30 h60 v-30 z" />
+        </clipPath>
+        <clipPath id="t">
+          <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z" />
+        </clipPath>
+        <g clip-path="url(#s)">
+          <path d="M0,0 v30 h60 v-30 z" fill="#012169" />
+          <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6" />
+          <path
+            d="M0,0 L60,30 M60,0 L0,30"
+            clip-path="url(#t)"
+            stroke="#C8102E"
+            stroke-width="4"
+          />
+          <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10" />
+          <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6" />
+        </g>
+      </svg>
+    ),
+  },
+  {
+    code: 'pl',
+    name: 'Polish',
+    flag: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="24" height="12">
+        <g fill-rule="evenodd" stroke-width="1.25">
+          <path fill="#fff" d="M640 480H0V0h640z" />
+          <path fill="#dc143c" d="M640 480H0V240h640z" />
+        </g>
+      </svg>
+    ),
+  },
+  {
+    code: 'ua',
+    name: 'Ukrainian',
+    flag: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="24" height="12">
+        <path fill="#005BBB" d="M0 0h600v200H0z" />
+        <path fill="#FFD500" d="M0 200h600v200H0z" />
+      </svg>
+    ),
+  },
+];
+
+export function LanguageSwitcher() {
+  const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
+
+  const handleLanguageChange = (langCode: string) => {
+    const newLang = languages.find((lang) => lang.code === langCode);
+    if (newLang && newLang.code !== selectedLanguage.code) {
+      setSelectedLanguage(newLang);
+      // Here you would typically implement the logic to change the app's language
+      console.log(`Language changed to: ${newLang.name}`);
+    }
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" className="flex items-center gap-2">
+          {selectedLanguage.flag}
+          <span className="hidden sm:inline">{selectedLanguage.name}</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        {languages.map((lang) => (
+          <DropdownMenuItem
+            key={lang.code}
+            onClick={() => handleLanguageChange(lang.code)}
+            className={cn(
+              'flex items-center gap-2',
+              selectedLanguage.code === lang.code && 'bg-accent'
+            )}
+          >
+            {lang.flag}
+            <span>{lang.name}</span>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}

@@ -1,3 +1,4 @@
+import { LanguageSwitcher } from '@/components/language-switcher';
 import { Logo } from '@/components/logo';
 import { MainNav } from '@/components/main-nav';
 import {
@@ -20,7 +21,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </SidebarContent>
       </Sidebar>
       <SidebarInset>
-        <div className="min-h-screen animate-in fade-in-50 duration-500">{children}</div>
+        <header className="flex justify-end p-4">
+          <LanguageSwitcher />
+        </header>
+        <div className="animate-in fade-in-50 duration-500">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

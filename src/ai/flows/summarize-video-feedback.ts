@@ -71,7 +71,7 @@ Example Output:
 <p><b>Accent Rate:</b> 6/10</p>
 <p><b>Pronunciation Rate:</b> 8/10</p>
 <p><b>Feedback:</b> Your presentation was clear and well-paced. Consider adding more specific examples to illustrate your points.</p>
-<p><b>Exercises that will help you to improve:<br></b></p>
+<p><b>Exercises that will help you to improve:</b><br> show an exercieses that you have generated</p>
 `,
 });
 
