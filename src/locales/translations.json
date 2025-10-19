@@ -1,3 +1,4 @@
+
 {
   "en": {
     "languages": {
@@ -11,13 +12,93 @@
       "reading": "Reading"
     },
     "videoFeedback": {
-      "title": "Video Feedback"
+      "title": "Video Feedback",
+      "refineContent": {
+        "title": "Refine Your Content",
+        "description": "Upload a video or audio file and tell our AI what you'd like feedback on."
+      },
+      "mediaFile": {
+        "label": "Media File",
+        "description": "Upload a video or audio file for analysis."
+      },
+      "feedbackRequest": {
+        "label": "Feedback Request",
+        "placeholder": "e.g., 'Is my presentation clear and engaging?' or 'check the speak errors of user'",
+        "description": "Be specific about the advice you're looking for."
+      },
+      "getFeedbackButton": "Get Feedback",
+      "recommendedExercises": {
+        "title": "Recommended Exercises",
+        "description": "Here are some YouTube videos to help you improve."
+      },
+      "aiSummary": {
+        "title": "AI Summary",
+        "description": "Here are the key points from our AI analysis.",
+        "emptyState": "Your feedback will appear here once you submit a file."
+      },
+      "rateButton": "Rate"
     },
     "writing": {
-      "title": "Writing Assistant"
+      "title": "Writing Assistant",
+      "adaptTone": {
+        "title": "Adapt Your Tone",
+        "description": "Enter your text and choose a desired tone. Our AI will adapt it for you."
+      },
+      "originalText": {
+        "label": "Original Text",
+        "placeholder": "Enter your text here..."
+      },
+      "desiredTone": {
+        "label": "Desired Tone",
+        "placeholder": "Select a tone",
+        "description": "Choose the tone you want to convey.",
+        "tones": {
+          "formal": "Formal",
+          "persuasive": "Persuasive",
+          "friendly": "Friendly",
+          "confident": "Confident",
+          "empathetic": "Empathetic"
+        }
+      },
+      "adaptToneButton": "Adapt Tone",
+      "aiSuggestions": {
+        "title": "AI Suggestions",
+        "description": "Here is the adapted text and an explanation of the changes.",
+        "adaptedText": "Adapted Text",
+        "explanation": "Explanation",
+        "emptyState": "Your adapted text will appear here."
+      }
     },
     "reading": {
-      "title": "Reading Suggestions"
+      "title": "Reading Suggestions",
+      "personalizeReading": {
+        "title": "Personalize Your Reading",
+        "description": "Tell us about your current activity and past reads to get tailored suggestions."
+      },
+      "currentActivity": {
+        "label": "Current Activity",
+        "placeholder": "e.g., 'Researching modern web development techniques...'",
+        "description": "What are you currently focused on or learning about?"
+      },
+      "readingHistory": {
+        "label": "Reading History & Preferences",
+        "placeholder": "e.g., 'I enjoy articles on AI, design systems, and serverless architecture.'",
+        "description": "What topics or authors have you enjoyed in the past?"
+      },
+      "getSuggestionsButton": "Get Suggestions",
+      "suggestedForYou": {
+        "title": "Suggested For You",
+        "description": "Based on your input, here are some reads you might enjoy.",
+        "reasoning": "Reasoning",
+        "emptyState": "Your personalized reading list will appear here."
+      }
+    },
+    "ratingDialog": {
+      "title": "Rate the Summary",
+      "description": "Let us know how you found the AI-generated summary.",
+      "commentLabel": "Add a comment (optional)",
+      "commentPlaceholder": "What did you like? What could be improved?",
+      "submitButton": "Submit Feedback"
     }
   },
   "pl": {
@@ -32,13 +113,93 @@
       "reading": "Czytanie"
     },
     "videoFeedback": {
-      "title": "Opinie wideo"
+      "title": "Opinie wideo",
+      "refineContent": {
+        "title": "Dopracuj swoją treść",
+        "description": "Prześlij plik wideo lub audio i powiedz naszej sztucznej inteligencji, na czym Ci zależy."
+      },
+      "mediaFile": {
+        "label": "Plik multimedialny",
+        "description": "Prześlij plik wideo lub audio do analizy."
+      },
+      "feedbackRequest": {
+        "label": "Prośba o opinię",
+        "placeholder": "np. „Czy moja prezentacja jest jasna i wciągająca?” lub „sprawdź błędy w mowie użytkownika”",
+        "description": "Określ, jakiej porady szukasz."
+      },
+      "getFeedbackButton": "Uzyskaj opinię",
+      "recommendedExercises": {
+        "title": "Zalecane ćwiczenia",
+        "description": "Oto kilka filmów na YouTube, które pomogą Ci się poprawić."
+      },
+      "aiSummary": {
+        "title": "Podsumowanie AI",
+        "description": "Oto kluczowe punkty z naszej analizy AI.",
+        "emptyState": "Twoja opinia pojawi się tutaj po przesłaniu pliku."
+      },
+      "rateButton": "Oceń"
     },
     "writing": {
-      "title": "Asystent pisania"
+      "title": "Asystent pisania",
+      "adaptTone": {
+        "title": "Dostosuj swój ton",
+        "description": "Wprowadź tekst i wybierz pożądany ton. Nasza sztuczna inteligencja dostosuje go dla Ciebie."
+      },
+      "originalText": {
+        "label": "Oryginalny tekst",
+        "placeholder": "Wpisz swój tekst tutaj..."
+      },
+      "desiredTone": {
+        "label": "Pożądany ton",
+        "placeholder": "Wybierz ton",
+        "description": "Wybierz ton, który chcesz przekazać.",
+        "tones": {
+          "formal": "Formalny",
+          "persuasive": "Przekonujący",
+          "friendly": "Przyjazny",
+          "confident": "Pewny siebie",
+          "empathetic": "Empatyczny"
+        }
+      },
+      "adaptToneButton": "Dostosuj ton",
+      "aiSuggestions": {
+        "title": "Sugestie AI",
+        "description": "Oto dostosowany tekst i wyjaśnienie zmian.",
+        "adaptedText": "Dostosowany tekst",
+        "explanation": "Wyjaśnienie",
+        "emptyState": "Twój dostosowany tekst pojawi się tutaj."
+      }
     },
     "reading": {
-      "title": "Sugestie czytelnicze"
+      "title": "Sugestie czytelnicze",
+      "personalizeReading": {
+        "title": "Spersonalizuj swoje czytanie",
+        "description": "Opowiedz nam o swojej obecnej aktywności i poprzednich lekturach, aby otrzymać dopasowane sugestie."
+      },
+      "currentActivity": {
+        "label": "Obecna aktywność",
+        "placeholder": "np. „Badanie nowoczesnych technik tworzenia stron internetowych...”",
+        "description": "Na czym się obecnie koncentrujesz lub czego się uczysz?"
+      },
+      "readingHistory": {
+        "label": "Historia czytania i preferencje",
+        "placeholder": "np. „Lubię artykuły o sztucznej inteligencji, systemach projektowych i architekturze bezserwerowej”",
+        "description": "Jakie tematy lub autorzy podobały Ci się w przeszłości?"
+      },
+      "getSuggestionsButton": "Pobierz sugestie",
+      "suggestedForYou": {
+        "title": "Sugerowane dla Ciebie",
+        "description": "Na podstawie Twoich danych wejściowych, oto kilka lektur, które mogą Ci się spodobać.",
+        "reasoning": "Uzasadnienie",
+        "emptyState": "Twoja spersonalizowana lista lektur pojawi się tutaj."
+      }
+    },
+    "ratingDialog": {
+      "title": "Oceń podsumowanie",
+      "description": "Daj nam znać, jak oceniasz podsumowanie wygenerowane przez sztuczną inteligencję.",
+      "commentLabel": "Dodaj komentarz (opcjonalnie)",
+      "commentPlaceholder": "Co Ci się podobało? Co można by poprawić?",
+      "submitButton": "Prześlij opinię"
     }
   },
   "ua": {
@@ -53,13 +214,93 @@
       "reading": "Читання"
     },
     "videoFeedback": {
-      "title": "Відео-відгук"
+      "title": "Відео-відгук",
+      "refineContent": {
+        "title": "Вдосконалюйте свій контент",
+        "description": "Завантажте відео або аудіофайл і скажіть нашому ШІ, на що ви б хотіли отримати відгук."
+      },
+      "mediaFile": {
+        "label": "Медіафайл",
+        "description": "Завантажте відео або аудіофайл для аналізу."
+      },
+      "feedbackRequest": {
+        "label": "Запит на відгук",
+        "placeholder": "напр., 'Чи моя презентація чітка та цікава?' або 'перевірити помилки мовлення користувача'",
+        "description": "Будьте конкретними щодо поради, яку ви шукаєте."
+      },
+      "getFeedbackButton": "Отримати відгук",
+      "recommendedExercises": {
+        "title": "Рекомендовані вправи",
+        "description": "Ось кілька відео на YouTube, які допоможуть вам покращитися."
+      },
+      "aiSummary": {
+        "title": "Підсумок ШІ",
+        "description": "Ось ключові моменти нашого аналізу ШІ.",
+        "emptyState": "Ваш відгук з’явиться тут після того, як ви надішлете файл."
+      },
+      "rateButton": "Оцінити"
     },
     "writing": {
-      "title": "Помічник у написанні"
+      "title": "Помічник у написанні",
+      "adaptTone": {
+        "title": "Адаптуйте свій тон",
+        "description": "Введіть свій текст і виберіть бажаний тон. Наш ШІ адаптує його для вас."
+      },
+      "originalText": {
+        "label": "Оригінальний текст",
+        "placeholder": "Введіть свій текст тут..."
+      },
+      "desiredTone": {
+        "label": "Бажаний тон",
+        "placeholder": "Виберіть тон",
+        "description": "Виберіть тон, який ви хочете передати.",
+        "tones": {
+          "formal": "Формальний",
+          "persuasive": "Переконливий",
+          "friendly": "Дружній",
+          "confident": "Впевнений",
+          "empathetic": "Співчутливий"
+        }
+      },
+      "adaptToneButton": "Адаптувати тон",
+      "aiSuggestions": {
+        "title": "Пропозиції ШІ",
+        "description": "Ось адаптований текст і пояснення змін.",
+        "adaptedText": "Адаптований текст",
+        "explanation": "Пояснення",
+        "emptyState": "Ваш адаптований текст з’явиться тут."
+      }
     },
     "reading": {
-      "title": "Пропозиції до читання"
+      "title": "Пропозиції до читання",
+      "personalizeReading": {
+        "title": "Персоналізуйте своє читання",
+        "description": "Розкажіть нам про свою поточну діяльність та минулі прочитання, щоб отримати індивідуальні пропозиції."
+      },
+      "currentActivity": {
+        "label": "Поточна діяльність",
+        "placeholder": "напр., 'Дослідження сучасних технік веб-розробки...'",
+        "description": "На чому ви зараз зосереджені або що вивчаєте?"
+      },
+      "readingHistory": {
+        "label": "Історія читання та вподобання",
+        "placeholder": "напр., 'Мені подобаються статті про ШІ, системи дизайну та безсерверну архітектуру.'",
+        "description": "Які теми чи автори вам сподобалися в минулому?"
+      },
+      "getSuggestionsButton": "Отримати пропозиції",
+      "suggestedForYou": {
+        "title": "Запропоновано для вас",
+        "description": "На основі ваших даних, ось кілька матеріалів, які можуть вам сподобатися.",
+        "reasoning": "Обґрунтування",
+        "emptyState": "Ваш персоналізований список для читання з’явиться тут."
+      }
+    },
+    "ratingDialog": {
+      "title": "Оцініть підсумок",
+      "description": "Повідомте нам, як вам сподобався підсумок, згенерований штучним інтелектом.",
+      "commentLabel": "Додати коментар (необов’язково)",
+      "commentPlaceholder": "Що вам сподобалося? Що можна було б покращити?",
+      "submitButton": "Надіслати відгук"
     }
   }
 }

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -29,28 +30,36 @@ import {
 import { Input } from '@/components/ui/input';
 import { RatingDialog } from '@/components/ui/rating-dialog';
 import { Textarea } from '@/components/ui/textarea';
+import { useLanguage } from '@/context/language-context';
 import { useToast } from '@/hooks/use-toast';
 
 const videoFeedbackSchema = z.object({
   media: z.any().refine((file) => !!file, 'A video or audio file is required.'),
   feedbackRequest: z
     .string()
-    .min(10, 'Please describe the feedback you want in at least 10 characters.'),
+    .min(
+      10,
+      'Please describe the feedback you want in at least 10 characters.'
+    ),
 });
 
 type VideoFeedbackFormValues = z.infer<typeof videoFeedbackSchema>;
 
 function SubmitButton() {
   const { pending } = useFormStatus();
+  const { getTranslations } = useLanguage();
+  const t = getTranslations();
   return (
     <Button type="submit" disabled={pending} className="w-full">
       {pending && <LoaderCircle className="mr-2 animate-spin" />}
-      Get Feedback
+      {t.videoFeedback.getFeedbackButton}
     </Button>
   );
 }
 
 export default function VideoFeedbackClient() {
+  const { getTranslations } = useLanguage();
+  const t = getTranslations();
   const [state, formAction] = useActionState<State, FormData>(getFeedback, {
     summary: '',
     videoExercises: [],
@@ -101,10 +110,9 @@ export default function VideoFeedbackClient() {
       <div className="flex flex-col gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Refine Your Content</CardTitle>
+            <CardTitle>{t.videoFeedback.refineContent.title}</CardTitle>
             <CardDescription>
-              Upload a video or audio file and tell our AI what you&apos;d like
-              feedback on.
+              {t.videoFeedback.refineContent.description}
             </CardDescription>
           </CardHeader>
           <Form {...form}>
@@ -115,7 +123,7 @@ export default function VideoFeedbackClient() {
                   name="media"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Media File</FormLabel>
+                      <FormLabel>{t.videoFeedback.mediaFile.label}</FormLabel>
                       <FormControl>
                         <div className="relative">
                           <Upload className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -135,7 +143,7 @@ export default function VideoFeedbackClient() {
                         </div>
                       </FormControl>
                       <FormDescription>
-                        Upload a video or audio file for analysis.
+                        {t.videoFeedback.mediaFile.description}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -146,15 +154,19 @@ export default function VideoFeedbackClient() {
                   name="feedbackRequest"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Feedback Request</FormLabel>
+                      <FormLabel>
+                        {t.videoFeedback.feedbackRequest.label}
+                      </FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="e.g., 'Is my presentation clear and engaging?' or 'check the speak errors of user'"
+                          placeholder={
+                            t.videoFeedback.feedbackRequest.placeholder
+                          }
                           {...field}
                         />
                       </FormControl>
                       <FormDescription>
-                        Be specific about the advice you&apos;re looking for.
+                        {t.videoFeedback.feedbackRequest.description}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -173,9 +185,11 @@ export default function VideoFeedbackClient() {
           state.videoExercises.length > 0 && (
             <Card className="w-full">
               <CardHeader>
-                <CardTitle>Recommended Exercises</CardTitle>
+                <CardTitle>
+                  {t.videoFeedback.recommendedExercises.title}
+                </CardTitle>
                 <CardDescription>
-                  Here are some YouTube videos to help you improve.
+                  {t.videoFeedback.recommendedExercises.description}
                 </CardDescription>
               </CardHeader>
               <CardContent className="w-full">
@@ -207,15 +221,13 @@ export default function VideoFeedbackClient() {
       <Card
         className={
           'flex flex-col ' +
-          (!showSummary && !state?.error
-            ? 'justify-center items-center'
-            : '')
+          (!showSummary && !state?.error ? 'justify-center items-center' : '')
         }
       >
         <CardHeader className="w-full">
-          <CardTitle>AI Summary</CardTitle>
+          <CardTitle>{t.videoFeedback.aiSummary.title}</CardTitle>
           <CardDescription>
-            Here are the key points from our AI analysis.
+            {t.videoFeedback.aiSummary.description}
           </CardDescription>
         </CardHeader>
         <CardContent className="w-full flex-1">
@@ -228,7 +240,7 @@ export default function VideoFeedbackClient() {
             <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">
               <Wand2 className="w-12 h-12" />
               <p className="max-w-xs">
-                Your feedback will appear here once you submit a file.
+                {t.videoFeedback.aiSummary.emptyState}
               </p>
             </div>
           )}
@@ -239,7 +251,7 @@ export default function VideoFeedbackClient() {
               className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
               onClick={() => setRatingDialogOpen(true)}
             >
-              Rate
+              {t.videoFeedback.rateButton}
             </Button>
           </CardFooter>
         )}

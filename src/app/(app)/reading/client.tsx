@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -27,6 +28,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
+import { useLanguage } from '@/context/language-context';
 import { useToast } from '@/hooks/use-toast';
 
 const readingSchema = z.object({
@@ -42,15 +44,19 @@ type ReadingFormValues = z.infer<typeof readingSchema>;
 
 function SubmitButton() {
   const { pending } = useFormStatus();
+  const { getTranslations } = useLanguage();
+  const t = getTranslations();
   return (
     <Button type="submit" disabled={pending} className="w-full">
       {pending && <LoaderCircle className="mr-2 animate-spin" />}
-      Get Suggestions
+      {t.reading.getSuggestionsButton}
     </Button>
   );
 }
 
 export default function ReadingClient() {
+  const { getTranslations } = useLanguage();
+  const t = getTranslations();
   const [state, formAction] = useActionState<State, FormData>(
     getSuggestions,
     null
@@ -79,32 +85,28 @@ export default function ReadingClient() {
     <div className="grid gap-6 md:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle>Personalize Your Reading</CardTitle>
+          <CardTitle>{t.reading.personalizeReading.title}</CardTitle>
           <CardDescription>
-            Tell us about your current activity and past reads to get tailored
-            suggestions.
+            {t.reading.personalizeReading.description}
           </CardDescription>
         </CardHeader>
         <Form {...form}>
-          <form
-            action={formAction}
-            className="space-y-4"
-          >
+          <form action={formAction} className="space-y-4">
             <CardContent className="space-y-4">
               <FormField
                 control={form.control}
                 name="userActivity"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Current Activity</FormLabel>
+                    <FormLabel>{t.reading.currentActivity.label}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="e.g., 'Researching modern web development techniques...'"
+                        placeholder={t.reading.currentActivity.placeholder}
                         {...field}
                       />
                     </FormControl>
                     <FormDescription>
-                      What are you currently focused on or learning about?
+                      {t.reading.currentActivity.description}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -115,15 +117,15 @@ export default function ReadingClient() {
                 name="readingHistory"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Reading History & Preferences</FormLabel>
+                    <FormLabel>{t.reading.readingHistory.label}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="e.g., 'I enjoy articles on AI, design systems, and serverless architecture.'"
+                        placeholder={t.reading.readingHistory.placeholder}
                         {...field}
                       />
                     </FormControl>
                     <FormDescription>
-                      What topics or authors have you enjoyed in the past?
+                      {t.reading.readingHistory.description}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -139,9 +141,9 @@ export default function ReadingClient() {
 
       <Card className="flex flex-col">
         <CardHeader>
-          <CardTitle>Suggested For You</CardTitle>
+          <CardTitle>{t.reading.suggestedForYou.title}</CardTitle>
           <CardDescription>
-            Based on your input, here are some reads you might enjoy.
+            {t.reading.suggestedForYou.description}
           </CardDescription>
         </CardHeader>
         <CardContent className="flex-1 space-y-6">
@@ -160,8 +162,12 @@ export default function ReadingClient() {
               </ul>
               {state.reasoning && (
                 <div className="p-4 mt-6 text-sm border-l-4 rounded-r-md bg-secondary border-primary">
-                  <p className="font-semibold">Reasoning</p>
-                  <p className="mt-1 text-muted-foreground">{state.reasoning}</p>
+                  <p className="font-semibold">
+                    {t.reading.suggestedForYou.reasoning}
+                  </p>
+                  <p className="mt-1 text-muted-foreground">
+                    {state.reasoning}
+                  </p>
                 </div>
               )}
             </div>
@@ -169,7 +175,7 @@ export default function ReadingClient() {
             <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">
               <Library className="w-12 h-12" />
               <p className="max-w-xs">
-                Your personalized reading list will appear here.
+                {t.reading.suggestedForYou.emptyState}
               </p>
             </div>
           )}

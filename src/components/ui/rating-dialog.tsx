@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Star } from 'lucide-react';
@@ -13,6 +14,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
+import { useLanguage } from '@/context/language-context';
 import { cn } from '@/lib/utils';
 
 interface RatingDialogProps {
@@ -26,6 +28,8 @@ export function RatingDialog({
   onOpenChange,
   onSubmit,
 }: RatingDialogProps) {
+  const { getTranslations } = useLanguage();
+  const t = getTranslations();
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState('');
@@ -41,10 +45,10 @@ export function RatingDialog({
       <DialogContent className="sm:max-w-[425px] bg-sky-50">
         <DialogHeader>
           <DialogTitle className="text-center text-2xl font-bold">
-            Rate the Summary
+            {t.ratingDialog.title}
           </DialogTitle>
           <DialogDescription className="text-center">
-            Let us know how you found the AI-generated summary.
+            {t.ratingDialog.description}
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
@@ -69,11 +73,11 @@ export function RatingDialog({
               htmlFor="comment"
               className="text-sm font-medium text-gray-700"
             >
-              Add a comment (optional)
+              {t.ratingDialog.commentLabel}
             </label>
             <Textarea
               id="comment"
-              placeholder="What did you like? What could be improved?"
+              placeholder={t.ratingDialog.commentPlaceholder}
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               className="mt-2 bg-muted"
@@ -87,12 +91,10 @@ export function RatingDialog({
             disabled={rating === 0}
             className={cn(
               'w-full text-white',
-              rating > 0
-                ? 'bg-blue-300 hover:bg-blue-400'
-                : 'bg-gray-300'
+              rating > 0 ? 'bg-blue-300 hover:bg-blue-400' : 'bg-gray-300'
             )}
           >
-            Submit Feedback
+            {t.ratingDialog.submitButton}
           </Button>
         </DialogFooter>
       </DialogContent>
