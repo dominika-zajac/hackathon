@@ -2,12 +2,12 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle, Upload, Wand2 } from 'lucide-react';
-import React from 'react';
-import { useActionState } from 'react';
+import React, { useActionState, useMemo } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { getFeedback, type State } from './actions';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -31,21 +31,8 @@ import { RatingDialog } from '@/components/ui/rating-dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 
-import { getFeedback, type State } from './actions';
-
 const videoFeedbackSchema = z.object({
-  media: z
-    .any()
-    .refine(
-      (files) => files?.length === 1,
-      'A video or audio file is required.'
-    )
-    .refine(
-      (files) =>
-        files?.[0]?.type?.startsWith('video/') ||
-        files?.[0]?.type?.startsWith('audio/'),
-      'Only video or audio files are accepted.'
-    ),
+  media: z.any().refine((file) => file, 'A video or audio file is required.'),
   feedbackRequest: z
     .string()
     .min(10, 'Please describe the feedback you want in at least 10 characters.'),
@@ -64,14 +51,15 @@ function SubmitButton() {
 }
 
 export default function VideoFeedbackClient() {
-  const [state, formAction] = useActionState<State, FormData>(
-    getFeedback,
-    null
-  );
-  const [isRatingDialogOpen, setRatingDialogOpen] = React.useState(false);
-  const [showSummary, setShowSummary] = React.useState(false);
+  const [state, formAction] = useActionState<State, FormData>(getFeedback, null);
   const { toast } = useToast();
 
+  const [isRatingDialogOpen, setRatingDialogOpen] = React.useState(false);
+
+  const showSummary = useMemo(() => {
+    return !!state?.summary;
+  }, [state?.summary]);
+  
   const form = useForm<VideoFeedbackFormValues>({
     resolver: zodResolver(videoFeedbackSchema),
     defaultValues: {
@@ -90,21 +78,17 @@ export default function VideoFeedbackClient() {
         description: state.error,
       });
     }
-    if (state?.summary) {
-      setShowSummary(true);
-      form.reset();
-    }
-  }, [state, toast, form]);
+  }, [state, toast]);
 
   const handleFeedbackSubmit = () => {
     // Handle feedback submission logic here
     console.log('Feedback submitted');
     setRatingDialogOpen(false);
-    setShowSummary(false);
     toast({
         title: "Feedback Submitted",
         description: "Thank you for your feedback!",
     });
+    form.reset();
   };
 
   return (
@@ -126,7 +110,7 @@ export default function VideoFeedbackClient() {
               <FormField
                 control={form.control}
                 name="media"
-                render={({ field: { onChange, onBlur, name } }) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel>Media File</FormLabel>
                     <FormControl>
@@ -136,20 +120,20 @@ export default function VideoFeedbackClient() {
                           type="file"
                           accept="video/*,audio/*"
                           className="pl-10"
+                          ref={fileInputRef.ref}
+                          name={fileInputRef.name}
+                          onBlur={fileInputRef.onBlur}
                           onChange={(e) => {
-                            const files = e.target.files;
-                            if (files) {
-                              onChange(files);
+                            if (e.target.files) {
+                              field.onChange(e.target.files[0]);
                             }
-                          }}
-                          onBlur={onBlur}
-                          name={name}
-                          ref={fileInputref => {
-                            fileInputRef.ref(fileInputref);
                           }}
                         />
                       </div>
                     </FormControl>
+                    <FormDescription>
+                      Upload a video or audio file for analysis.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -196,16 +180,8 @@ export default function VideoFeedbackClient() {
           </CardDescription>
         </CardHeader>
         <CardContent className="flex-1">
-          {form.formState.isSubmitting ? (
-             <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">
-              <LoaderCircle className="w-12 h-12 animate-spin" />
-              <p className="max-w-xs">
-                Analyzing your file...
-              </p>
-            </div>
-          ) : showSummary && state?.summary ? (
-            <div className="space-y-4 text-sm">
-              <p>{state.summary}</p>
+          {showSummary && state?.summary ? (
+            <div className="space-y-4 text-sm" dangerouslySetInnerHTML={{ __html: state.summary }}>
             </div>
           ) : (
             <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">

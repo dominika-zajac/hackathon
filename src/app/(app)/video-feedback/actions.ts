@@ -8,22 +8,20 @@ export interface State {
   error?: string;
 }
 
-const toDataURI = (arrayBuffer: ArrayBuffer, mimeType: string): string => {
-  const
-   uint8Array = new Uint8Array(arrayBuffer);
-  let
-   binary = '';
-  uint8Array.forEach((byte) => {
-    binary += String.fromCharCode(byte);
-  });
-  const base64 = btoa(binary);
-  return `data:${mimeType};base64,${base64}`;
-}
-
 const videoFeedbackSchema = z.object({
   media: z.instanceof(File),
   feedbackRequest: z.string(),
 });
+
+function toBase64(buffer: ArrayBuffer) {
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
 
 export async function getFeedback(
   prevState: State | null,
@@ -35,20 +33,24 @@ export async function getFeedback(
   });
 
   if (!validation.success) {
-    return { error: validation.error.flatten().fieldErrors.media?.[0] || 'Invalid input.' };
+    return { error: 'Invalid input. A file and feedback request are required.' };
   }
 
+  const { media, feedbackRequest } = validation.data;
+
   try {
-    const { media, feedbackRequest } = validation.data;
-    const mediaArrayBuffer = await media.arrayBuffer();
-    const mediaDataUri = toDataURI(mediaArrayBuffer, media.type);
+    const mediaBuffer = await media.arrayBuffer();
+    const mediaDataUri = `data:${media.type};base64,${toBase64(mediaBuffer)}`;
 
     const result = await summarizeVideoFeedback({
       mediaDataUri,
       feedbackRequest,
     });
-    return { summary: result.summary };
+    return {
+      summary: result.summary,
+    };
   } catch (e: any) {
+    console.error(e);
     return { error: e.message || 'An unexpected error occurred.' };
   }
 }
