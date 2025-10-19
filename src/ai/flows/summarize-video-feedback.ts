@@ -62,6 +62,7 @@ The summary output should be a valid HTML string with the following structure:
 - A pronunciation rating out of 10.
 - A sentence structure rating out of 10.
 - Additional detailed feedback.
+- Generate an example exercises which will help the user to improve.
 
 Example Output:
 <p><b>Summary Rate:</b> 8/10</p>
@@ -70,6 +71,7 @@ Example Output:
 <p><b>Accent Rate:</b> 6/10</p>
 <p><b>Pronunciation Rate:</b> 8/10</p>
 <p><b>Feedback:</b> Your presentation was clear and well-paced. Consider adding more specific examples to illustrate your points.</p>
+<p><b>Exercises that will help you to improve:<br></b></p>
 `,
 });
 
