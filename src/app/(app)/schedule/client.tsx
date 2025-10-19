@@ -19,6 +19,8 @@ import { Check } from 'lucide-react';
 
 type SavedPlans = Record<string, string>;
 
+const LOCAL_STORAGE_KEY = 'lingate-schedule-plans';
+
 export default function ScheduleClient() {
   const { getTranslations } = useLanguage();
   const t = getTranslations().schedule;
@@ -26,6 +28,17 @@ export default function ScheduleClient() {
   const [plan, setPlan] = useState('');
   const [savedPlans, setSavedPlans] = useState<SavedPlans>({});
   const { toast } = useToast();
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (saved) {
+        setSavedPlans(JSON.parse(saved));
+      }
+    } catch (error) {
+      console.error('Failed to load plans from local storage', error);
+    }
+  }, []);
 
   const plannedDates = Object.keys(savedPlans)
     .filter((key) => savedPlans[key])
@@ -41,18 +54,25 @@ export default function ScheduleClient() {
   }, [date, savedPlans]);
 
   const handleSavePlan = () => {
-    if (date && plan) {
+    if (date) {
       const formattedDate = format(date, 'yyyy-MM-dd');
-      setSavedPlans((prev) => ({ ...prev, [formattedDate]: plan }));
-      toast({
-        title: t.planSaved.title,
-        description: `${t.planSaved.description} ${format(date, 'PPP')}`,
-      });
-    } else if (date && !plan) {
-      const formattedDate = format(date, 'yyyy-MM-dd');
-      const newSavedPlans = { ...savedPlans };
-      delete newSavedPlans[formattedDate];
+      let newSavedPlans;
+      if (plan) {
+        newSavedPlans = { ...savedPlans, [formattedDate]: plan };
+        toast({
+          title: t.planSaved.title,
+          description: `${t.planSaved.description} ${format(date, 'PPP')}`,
+        });
+      } else {
+        const { [formattedDate]: _, ...rest } = savedPlans;
+        newSavedPlans = rest;
+      }
       setSavedPlans(newSavedPlans);
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newSavedPlans));
+      } catch (error) {
+        console.error('Failed to save plans to local storage', error);
+      }
     } else {
       toast({
         variant: 'destructive',
