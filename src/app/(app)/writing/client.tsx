@@ -76,6 +76,16 @@ export default function WritingClient() {
       });
     }
   }, [state, toast]);
+  
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    form.handleSubmit(() => {
+      if (formRef.current) {
+        const formData = new FormData(formRef.current);
+        formAction(formData);
+      }
+    })(e);
+  };
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
@@ -91,10 +101,7 @@ export default function WritingClient() {
           <form
             ref={formRef}
             action={formAction}
-            onSubmit={form.handleSubmit(() => {
-              const formData = new FormData(formRef.current!);
-              formAction(formData);
-            })}
+            onSubmit={onFormSubmit}
             className="space-y-4"
           >
             <CardContent className="space-y-4">
@@ -122,6 +129,7 @@ export default function WritingClient() {
                   <FormItem>
                     <FormLabel>Desired Tone</FormLabel>
                     <Select
+                      name={field.name}
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >

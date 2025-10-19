@@ -56,6 +56,7 @@ export default function ReadingClient() {
     null
   );
   const { toast } = useToast();
+  const formRef = React.useRef<HTMLFormElement>(null);
 
   const form = useForm<ReadingFormValues>({
     resolver: zodResolver(readingSchema),
@@ -75,6 +76,16 @@ export default function ReadingClient() {
     }
   }, [state, toast]);
 
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    form.handleSubmit(() => {
+      if (formRef.current) {
+        const formData = new FormData(formRef.current);
+        formAction(formData);
+      }
+    })(e);
+  };
+  
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <Card>
@@ -87,7 +98,9 @@ export default function ReadingClient() {
         </CardHeader>
         <Form {...form}>
           <form
+            ref={formRef}
             action={formAction}
+            onSubmit={onFormSubmit}
             className="space-y-4"
           >
             <CardContent className="space-y-4">
@@ -153,7 +166,7 @@ export default function ReadingClient() {
                     key={index}
                     className="flex items-start gap-3 p-3 text-sm rounded-md bg-secondary"
                   >
-                    <BookOpen className="w-4 h-4 mt-1 shrink-0 text-primary" />
+                    <BookOpen className="w-5 h-5 mt-1 shrink-0 text-primary" />
                     <span>{suggestion}</span>
                   </li>
                 ))}

@@ -62,7 +62,6 @@ export default function VideoFeedbackClient() {
   const [state, formAction] = useActionState<State, FormData>(getFeedback, null);
   const { toast } = useToast();
   const formRef = React.useRef<HTMLFormElement>(null);
-  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const form = useForm<VideoFeedbackFormValues>({
     resolver: zodResolver(videoFeedbackSchema),
@@ -87,6 +86,16 @@ export default function VideoFeedbackClient() {
       }
     }
   }, [state, toast, form]);
+  
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    form.handleSubmit(() => {
+      if (formRef.current) {
+        const formData = new FormData(formRef.current);
+        formAction(formData);
+      }
+    })(e);
+  };
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
@@ -101,47 +110,25 @@ export default function VideoFeedbackClient() {
           <form
             ref={formRef}
             action={formAction}
-            onSubmit={form.handleSubmit(() => {
-              const formData = new FormData(formRef.current!);
-              formData.set('feedbackRequest', form.getValues('feedbackRequest'));
-              formAction(formData);
-            })}
+            onSubmit={onFormSubmit}
           >
             <CardContent className="space-y-4">
               <FormField
                 control={form.control}
                 name="media"
-                render={({ field }) => (
+                render={({ field: { onChange, ...fieldProps } }) => (
                   <FormItem>
                     <FormLabel>Media File</FormLabel>
                     <FormControl>
                       <div className="relative">
                         <Upload className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                         <Input
+                          {...fieldProps}
                           type="file"
                           accept="video/*,audio/*"
-                          ref={fileInputRef}
                           className="pl-10"
                           onChange={(e) => {
-                            field.onChange(e.target.files);
-                            if (formRef.current) {
-                              const dataTransfer = new DataTransfer();
-                              if (e.target.files && e.target.files.length > 0) {
-                                dataTransfer.items.add(e.target.files[0]);
-                              }
-                              // To get file in server action, we need to create a new input
-                              const newFile = formRef.current.querySelector('input[name="media"]');
-                              if(newFile) {
-                                (newFile as HTMLInputElement).files = dataTransfer.files;
-                              } else {
-                                const newInput = document.createElement('input');
-                                newInput.type = 'file';
-                                newInput.name = 'media';
-                                newInput.files = dataTransfer.files;
-                                newInput.style.display = 'none';
-                                formRef.current.appendChild(newInput);
-                              }
-                            }
+                            onChange(e.target.files);
                           }}
                         />
                       </div>
