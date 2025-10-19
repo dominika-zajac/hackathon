@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -18,8 +19,8 @@ const languages = [
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 60 30"
-        width="32"
-        height="16"
+        width="40"
+        height="20"
       >
         <clipPath id="s">
           <path d="M0,0 v30 h60 v-30 z" />
@@ -49,8 +50,8 @@ const languages = [
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 640 480"
-        width="32"
-        height="16"
+        width="40"
+        height="20"
       >
         <g fill-rule="evenodd" stroke-width="1.25">
           <path fill="#fff" d="M640 480H0V0h640z" />
@@ -66,8 +67,8 @@ const languages = [
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 600 400"
-        width="32"
-        height="16"
+        width="40"
+        height="20"
       >
         <path fill="#005BBB" d="M0 0h600v200H0z" />
         <path fill="#FFD500" d="M0 200h600v200H0z" />
@@ -91,9 +92,15 @@ export function LanguageSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="flex items-center gap-2">
+        <Button
+          variant="outline"
+          size="lg"
+          className="flex items-center gap-3 text-base"
+        >
           {selectedLanguage.flag}
-          <span className="hidden sm:inline">{t.languages[selectedLanguage.code as 'en' | 'pl' | 'ua']}</span>
+          <span className="hidden sm:inline">
+            {t.languages[selectedLanguage.code as 'en' | 'pl' | 'ua']}
+          </span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -102,7 +109,7 @@ export function LanguageSwitcher() {
             key={lang.code}
             onClick={() => handleLanguageChange(lang.code)}
             className={cn(
-              'flex items-center gap-2',
+              'flex items-center gap-3 py-2 px-3 text-base',
               selectedLanguage.code === lang.code && 'bg-accent'
             )}
           >
