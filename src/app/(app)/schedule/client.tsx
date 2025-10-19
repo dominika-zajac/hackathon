@@ -1,6 +1,7 @@
+
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Calendar } from '@/components/ui/calendar';
 import {
   Card,
@@ -14,17 +15,29 @@ import { useLanguage } from '@/context/language-context';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
-import { BellRing, Check } from 'lucide-react';
+import { Check } from 'lucide-react';
+
+type SavedPlans = Record<string, string>;
 
 export default function ScheduleClient() {
   const { getTranslations } = useLanguage();
   const t = getTranslations().schedule;
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [plan, setPlan] = useState('');
+  const [savedPlans, setSavedPlans] = useState<SavedPlans>({});
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (date) {
+      const formattedDate = format(date, 'yyyy-MM-dd');
+      setPlan(savedPlans[formattedDate] || '');
+    }
+  }, [date, savedPlans]);
 
   const handleSavePlan = () => {
     if (date && plan) {
+      const formattedDate = format(date, 'yyyy-MM-dd');
+      setSavedPlans((prev) => ({ ...prev, [formattedDate]: plan }));
       toast({
         title: t.planSaved.title,
         description: `${t.planSaved.description} ${format(date, 'PPP')}`,
@@ -36,6 +49,25 @@ export default function ScheduleClient() {
         description: t.planError.description,
       });
     }
+  };
+
+  const DayWithDot = ({
+    displayMonth,
+    date,
+  }: {
+    displayMonth: Date;
+    date: Date;
+  }) => {
+    const formattedDate = format(date, 'yyyy-MM-dd');
+    const hasPlan = !!savedPlans[formattedDate];
+    return (
+      <div className="relative">
+        {date.getDate()}
+        {hasPlan && (
+          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></div>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -51,6 +83,9 @@ export default function ScheduleClient() {
             selected={date}
             onSelect={setDate}
             className="rounded-md border"
+            components={{
+              DayContent: DayWithDot,
+            }}
           />
         </CardContent>
       </Card>
