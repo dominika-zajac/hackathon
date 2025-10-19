@@ -21,8 +21,19 @@ const SummarizeVideoFeedbackInputSchema = z.object({
 });
 export type SummarizeVideoFeedbackInput = z.infer<typeof SummarizeVideoFeedbackInputSchema>;
 
+const VideoExerciseSchema = z.object({
+  title: z.string().describe('The title of the YouTube video lesson.'),
+  url: z.string().url().describe('The URL of the YouTube video.'),
+  description: z
+    .string()
+    .describe('A brief explanation of why this video is being recommended.'),
+});
+
 const SummarizeVideoFeedbackOutputSchema = z.object({
   summary: z.string().describe('The AI-powered summary of key feedback points from the video or audio, in HTML format.'),
+  videoExercises: z
+    .array(VideoExerciseSchema)
+    .describe('A list of suggested YouTube video exercises based on the identified mistakes.'),
 });
 export type SummarizeVideoFeedbackOutput = z.infer<typeof SummarizeVideoFeedbackOutputSchema>;
 
@@ -34,14 +45,16 @@ const prompt = ai.definePrompt({
   name: 'summarizeVideoFeedbackPrompt',
   input: {schema: SummarizeVideoFeedbackInputSchema},
   output: {schema: SummarizeVideoFeedbackOutputSchema},
-  prompt: `You are an AI assistant that provides concise and actionable feedback on video or audio.
+  prompt: `You are an AI assistant that provides concise and actionable feedback on video or audio. You also act as a language coach by suggesting relevant YouTube videos to help the user improve.
 
 You will analyze the media and provide a summary of key feedback points, focusing on areas for improvement as requested by the user. If the user asks to "check the speak errors of user", you should analyze the audio track and identify any grammar mistakes, filler words, or awkward phrasing, and suggest improvements.
+
+Based on the mistakes you identify, generate a list of 2-3 relevant YouTube video lessons. For each video, provide a title, a valid YouTube URL, and a short description of why it's helpful.
 
 User's feedback request: {{{feedbackRequest}}}
 Media: {{media url=mediaDataUri}}
 
-The output should be a valid HTML string with the following structure:
+The summary output should be a valid HTML string with the following structure:
 - A summary rating out of 10.
 - A grammar rating out of 10.
 - A intonation rating out of 10.

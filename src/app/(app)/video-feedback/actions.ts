@@ -1,10 +1,12 @@
 'use server';
 
-import { summarizeVideoFeedback } from '@/ai/flows/summarize-video-feedback';
+import {
+  summarizeVideoFeedback,
+  type SummarizeVideoFeedbackOutput,
+} from '@/ai/flows/summarize-video-feedback';
 import { z } from 'zod';
 
-export interface State {
-  summary?: string;
+export interface State extends SummarizeVideoFeedbackOutput {
   error?: string;
 }
 
@@ -46,9 +48,7 @@ export async function getFeedback(
       mediaDataUri,
       feedbackRequest,
     });
-    return {
-      summary: result.summary,
-    };
+    return result;
   } catch (e: any) {
     console.error(e);
     return { error: e.message || 'An unexpected error occurred.' };
