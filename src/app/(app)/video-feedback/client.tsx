@@ -2,7 +2,8 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle, Upload, Wand2 } from 'lucide-react';
-import React, { useActionState } from 'react';
+import React from 'react';
+import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -61,7 +62,6 @@ function SubmitButton() {
 export default function VideoFeedbackClient() {
   const [state, formAction] = useActionState<State, FormData>(getFeedback, null);
   const { toast } = useToast();
-  const formRef = React.useRef<HTMLFormElement>(null);
 
   const form = useForm<VideoFeedbackFormValues>({
     resolver: zodResolver(videoFeedbackSchema),
@@ -70,6 +70,8 @@ export default function VideoFeedbackClient() {
       feedbackRequest: '',
     },
   });
+
+  const fileInputRef = form.register('media');
 
   React.useEffect(() => {
     if (state?.error) {
@@ -81,21 +83,8 @@ export default function VideoFeedbackClient() {
     }
     if (state?.summary) {
       form.reset();
-      if (formRef.current) {
-        formRef.current.reset();
-      }
     }
   }, [state, toast, form]);
-  
-  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    form.handleSubmit(() => {
-      if (formRef.current) {
-        const formData = new FormData(formRef.current);
-        formAction(formData);
-      }
-    })(e);
-  };
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
@@ -108,9 +97,8 @@ export default function VideoFeedbackClient() {
         </CardHeader>
         <Form {...form}>
           <form
-            ref={formRef}
             action={formAction}
-            onSubmit={onFormSubmit}
+            className="space-y-4"
           >
             <CardContent className="space-y-4">
               <FormField
@@ -123,13 +111,10 @@ export default function VideoFeedbackClient() {
                       <div className="relative">
                         <Upload className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                         <Input
-                          {...fieldProps}
+                          {...fileInputRef}
                           type="file"
                           accept="video/*,audio/*"
                           className="pl-10"
-                          onChange={(e) => {
-                            onChange(e.target.files);
-                          }}
                         />
                       </div>
                     </FormControl>
