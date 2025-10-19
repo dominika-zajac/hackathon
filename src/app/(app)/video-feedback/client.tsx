@@ -7,7 +7,7 @@ import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { getFeedback, type State } from '@/app/(app)/video-feedback/actions';
+import { getFeedback, type State } from './actions';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -178,7 +178,7 @@ export default function VideoFeedbackClient() {
                   Here are some YouTube videos to help you improve.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="w-full">
                 <ul className="space-y-4">
                   {state.videoExercises.map((exercise, index) => (
                     <li key={index} className="flex items-start gap-4">
@@ -188,7 +188,7 @@ export default function VideoFeedbackClient() {
                           href={exercise.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-semibold text-primary hover:underline"
+                          className="font-semibold text-blueberry-blue hover:underline"
                         >
                           {exercise.title}
                         </a>
