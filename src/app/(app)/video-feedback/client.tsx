@@ -27,6 +27,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { RatingDialog } from '@/components/ui/rating-dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 
@@ -34,8 +35,11 @@ import { getFeedback, type State } from './actions';
 
 const videoFeedbackSchema = z.object({
   media: z
-    .custom<FileList>()
-    .refine((files) => files?.length === 1, 'A video or audio file is required.')
+    .any()
+    .refine(
+      (files) => files?.length === 1,
+      'A video or audio file is required.'
+    )
     .refine(
       (files) =>
         files?.[0]?.type?.startsWith('video/') ||
@@ -60,7 +64,11 @@ function SubmitButton() {
 }
 
 export default function VideoFeedbackClient() {
-  const [state, formAction] = useActionState<State, FormData>(getFeedback, null);
+  const [state, formAction] = useActionState<State, FormData>(
+    getFeedback,
+    null
+  );
+  const [isRatingDialogOpen, setRatingDialogOpen] = React.useState(false);
   const { toast } = useToast();
 
   const form = useForm<VideoFeedbackFormValues>({
@@ -86,25 +94,33 @@ export default function VideoFeedbackClient() {
     }
   }, [state, toast, form]);
 
+  const handleFeedbackSubmit = () => {
+    // Handle feedback submission logic here
+    console.log('Feedback submitted');
+    setRatingDialogOpen(false);
+    toast({
+        title: "Feedback Submitted",
+        description: "Thank you for your feedback!",
+    })
+  };
+
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <Card>
         <CardHeader>
           <CardTitle>Refine Your Content</CardTitle>
           <CardDescription>
-            Upload a video or audio file and tell our AI what you&apos;d like feedback on.
+            Upload a video or audio file and tell our AI what you&apos;d like
+            feedback on.
           </CardDescription>
         </CardHeader>
         <Form {...form}>
-          <form
-            action={formAction}
-            className="space-y-4"
-          >
+          <form action={formAction} className="space-y-4">
             <CardContent className="space-y-4">
               <FormField
                 control={form.control}
                 name="media"
-                render={({ field: { onChange, ...fieldProps } }) => (
+                render={({ field: { onChange, value, ...fieldProps } }) => (
                   <FormItem>
                     <FormLabel>Media File</FormLabel>
                     <FormControl>
@@ -151,7 +167,10 @@ export default function VideoFeedbackClient() {
 
       <Card
         className={
-          'flex flex-col ' + (!state?.summary && !state?.error ? 'justify-center items-center' : '')
+          'flex flex-col ' +
+          (!state?.summary && !state?.error
+            ? 'justify-center items-center'
+            : '')
         }
       >
         <CardHeader>
@@ -174,7 +193,23 @@ export default function VideoFeedbackClient() {
             </div>
           )}
         </CardContent>
+        {state?.summary && (
+          <CardFooter>
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={() => setRatingDialogOpen(true)}
+            >
+              Rate
+            </Button>
+          </CardFooter>
+        )}
       </Card>
+      <RatingDialog
+        open={isRatingDialogOpen}
+        onOpenChange={setRatingDialogOpen}
+        onSubmit={handleFeedbackSubmit}
+      />
     </div>
   );
 }

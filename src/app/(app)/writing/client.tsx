@@ -57,7 +57,6 @@ function SubmitButton() {
 export default function WritingClient() {
   const [state, formAction] = useActionState<State, FormData>(adaptTone, null);
   const { toast } = useToast();
-  const formRef = React.useRef<HTMLFormElement>(null);
 
   const form = useForm<WritingFormValues>({
     resolver: zodResolver(writingSchema),
@@ -76,16 +75,6 @@ export default function WritingClient() {
       });
     }
   }, [state, toast]);
-  
-  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    form.handleSubmit(() => {
-      if (formRef.current) {
-        const formData = new FormData(formRef.current);
-        formAction(formData);
-      }
-    })(e);
-  };
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
@@ -99,9 +88,7 @@ export default function WritingClient() {
         </CardHeader>
         <Form {...form}>
           <form
-            ref={formRef}
             action={formAction}
-            onSubmit={onFormSubmit}
             className="space-y-4"
           >
             <CardContent className="space-y-4">
