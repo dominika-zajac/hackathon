@@ -1,0 +1,65 @@
+{
+  "en": {
+    "languages": {
+      "en": "English",
+      "pl": "Polish",
+      "ua": "Ukrainian"
+    },
+    "navigation": {
+      "videoFeedback": "Video Feedback",
+      "writing": "Writing",
+      "reading": "Reading"
+    },
+    "videoFeedback": {
+      "title": "Video Feedback"
+    },
+    "writing": {
+      "title": "Writing Assistant"
+    },
+    "reading": {
+      "title": "Reading Suggestions"
+    }
+  },
+  "pl": {
+    "languages": {
+      "en": "Angielski",
+      "pl": "Polski",
+      "ua": "Ukraiński"
+    },
+    "navigation": {
+      "videoFeedback": "Opinie wideo",
+      "writing": "Pisanie",
+      "reading": "Czytanie"
+    },
+    "videoFeedback": {
+      "title": "Opinie wideo"
+    },
+    "writing": {
+      "title": "Asystent pisania"
+    },
+    "reading": {
+      "title": "Sugestie czytelnicze"
+    }
+  },
+  "ua": {
+    "languages": {
+      "en": "Англійська",
+      "pl": "Польська",
+      "ua": "Українська"
+    },
+    "navigation": {
+      "videoFeedback": "Відео-відгук",
+      "writing": "Письмо",
+      "reading": "Читання"
+    },
+    "videoFeedback": {
+      "title": "Відео-відгук"
+    },
+    "writing": {
+      "title": "Помічник у написанні"
+    },
+    "reading": {
+      "title": "Пропозиції до читання"
+    }
+  }
+}

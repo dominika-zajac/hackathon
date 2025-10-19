@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { BookOpen, PenSquare, Video } from 'lucide-react';
+import { useLanguage } from '@/context/language-context';
 
 import {
   SidebarMenu,
@@ -10,14 +11,21 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 
-const navItems = [
-  { href: '/video-feedback', label: 'Video Feedback', icon: Video },
-  { href: '/writing', label: 'Writing', icon: PenSquare },
-  { href: '/reading', label: 'Reading', icon: BookOpen },
+const navItemsConfig = [
+  { href: '/video-feedback', translationKey: 'videoFeedback', icon: Video },
+  { href: '/writing', translationKey: 'writing', icon: PenSquare },
+  { href: '/reading', translationKey: 'reading', icon: BookOpen },
 ];
 
 export function MainNav() {
   const pathname = usePathname();
+  const { getTranslations } = useLanguage();
+  const t = getTranslations();
+
+  const navItems = navItemsConfig.map((item) => ({
+    ...item,
+    label: t.navigation[item.translationKey as keyof typeof t.navigation],
+  }));
 
   return (
     <SidebarMenu>

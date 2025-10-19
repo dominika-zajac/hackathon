@@ -1,21 +1,26 @@
-"use client";
+'use client';
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useLanguage } from '@/context/language-context';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 const languages = [
   {
     code: 'en',
     name: 'English',
     flag: (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="24" height="12">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 60 30"
+        width="32"
+        height="16"
+      >
         <clipPath id="s">
           <path d="M0,0 v30 h60 v-30 z" />
         </clipPath>
@@ -41,7 +46,12 @@ const languages = [
     code: 'pl',
     name: 'Polish',
     flag: (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="24" height="12">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 640 480"
+        width="32"
+        height="16"
+      >
         <g fill-rule="evenodd" stroke-width="1.25">
           <path fill="#fff" d="M640 480H0V0h640z" />
           <path fill="#dc143c" d="M640 480H0V240h640z" />
@@ -53,7 +63,12 @@ const languages = [
     code: 'ua',
     name: 'Ukrainian',
     flag: (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="24" height="12">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 600 400"
+        width="32"
+        height="16"
+      >
         <path fill="#005BBB" d="M0 0h600v200H0z" />
         <path fill="#FFD500" d="M0 200h600v200H0z" />
       </svg>
@@ -62,14 +77,14 @@ const languages = [
 ];
 
 export function LanguageSwitcher() {
-  const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
+  const { language, setLanguage, getTranslations } = useLanguage();
+  const t = getTranslations();
+  const selectedLanguage =
+    languages.find((lang) => lang.code === language) || languages[0];
 
   const handleLanguageChange = (langCode: string) => {
-    const newLang = languages.find((lang) => lang.code === langCode);
-    if (newLang && newLang.code !== selectedLanguage.code) {
-      setSelectedLanguage(newLang);
-      // Here you would typically implement the logic to change the app's language
-      console.log(`Language changed to: ${newLang.name}`);
+    if (langCode !== selectedLanguage.code) {
+      setLanguage(langCode as 'en' | 'pl' | 'ua');
     }
   };
 
@@ -78,7 +93,7 @@ export function LanguageSwitcher() {
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="flex items-center gap-2">
           {selectedLanguage.flag}
-          <span className="hidden sm:inline">{selectedLanguage.name}</span>
+          <span className="hidden sm:inline">{t.languages[selectedLanguage.code as 'en' | 'pl' | 'ua']}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -92,7 +107,7 @@ export function LanguageSwitcher() {
             )}
           >
             {lang.flag}
-            <span>{lang.name}</span>
+            <span>{t.languages[lang.code as 'en' | 'pl' | 'ua']}</span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
