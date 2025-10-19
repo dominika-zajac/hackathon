@@ -171,7 +171,7 @@ export default function VideoFeedbackClient() {
         {showSummary &&
           state.videoExercises &&
           state.videoExercises.length > 0 && (
-            <Card>
+            <Card className="w-full">
               <CardHeader>
                 <CardTitle>Recommended Exercises</CardTitle>
                 <CardDescription>
