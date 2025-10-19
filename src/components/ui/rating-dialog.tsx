@@ -84,7 +84,13 @@ export function RatingDialog({
           <Button
             type="button"
             onClick={handleSubmit}
-            className="w-full bg-blue-300 hover:bg-blue-400 text-white"
+            disabled={rating === 0}
+            className={cn(
+              'w-full text-white',
+              rating > 0
+                ? 'bg-blue-300 hover:bg-blue-400'
+                : 'bg-gray-300'
+            )}
           >
             Submit Feedback
           </Button>
