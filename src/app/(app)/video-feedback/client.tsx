@@ -69,6 +69,7 @@ export default function VideoFeedbackClient() {
     null
   );
   const [isRatingDialogOpen, setRatingDialogOpen] = React.useState(false);
+  const [showSummary, setShowSummary] = React.useState(false);
   const { toast } = useToast();
 
   const form = useForm<VideoFeedbackFormValues>({
@@ -90,6 +91,7 @@ export default function VideoFeedbackClient() {
       });
     }
     if (state?.summary) {
+      setShowSummary(true);
       form.reset();
     }
   }, [state, toast, form]);
@@ -98,10 +100,11 @@ export default function VideoFeedbackClient() {
     // Handle feedback submission logic here
     console.log('Feedback submitted');
     setRatingDialogOpen(false);
+    setShowSummary(false);
     toast({
         title: "Feedback Submitted",
         description: "Thank you for your feedback!",
-    })
+    });
   };
 
   return (
@@ -115,22 +118,35 @@ export default function VideoFeedbackClient() {
           </CardDescription>
         </CardHeader>
         <Form {...form}>
-          <form action={formAction} className="space-y-4">
+          <form
+            action={formAction}
+            className="space-y-4"
+          >
             <CardContent className="space-y-4">
               <FormField
                 control={form.control}
                 name="media"
-                render={({ field: { onChange, value, ...fieldProps } }) => (
+                render={({ field: { onChange, onBlur, name } }) => (
                   <FormItem>
                     <FormLabel>Media File</FormLabel>
                     <FormControl>
                       <div className="relative">
                         <Upload className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                         <Input
-                          {...fileInputRef}
                           type="file"
                           accept="video/*,audio/*"
                           className="pl-10"
+                          onChange={(e) => {
+                            const files = e.target.files;
+                            if (files) {
+                              onChange(files);
+                            }
+                          }}
+                          onBlur={onBlur}
+                          name={name}
+                          ref={fileInputref => {
+                            fileInputRef.ref(fileInputref);
+                          }}
                         />
                       </div>
                     </FormControl>
@@ -168,7 +184,7 @@ export default function VideoFeedbackClient() {
       <Card
         className={
           'flex flex-col ' +
-          (!state?.summary && !state?.error
+          (!showSummary && !state?.error
             ? 'justify-center items-center'
             : '')
         }
@@ -180,7 +196,14 @@ export default function VideoFeedbackClient() {
           </CardDescription>
         </CardHeader>
         <CardContent className="flex-1">
-          {state?.summary ? (
+          {form.formState.isSubmitting ? (
+             <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">
+              <LoaderCircle className="w-12 h-12 animate-spin" />
+              <p className="max-w-xs">
+                Analyzing your file...
+              </p>
+            </div>
+          ) : showSummary && state?.summary ? (
             <div className="space-y-4 text-sm">
               <p>{state.summary}</p>
             </div>
@@ -193,7 +216,7 @@ export default function VideoFeedbackClient() {
             </div>
           )}
         </CardContent>
-        {state?.summary && (
+        {showSummary && state?.summary && (
           <CardFooter>
             <Button
               variant="outline"
