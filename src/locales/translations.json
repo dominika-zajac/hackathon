@@ -119,6 +119,10 @@
       "commentLabel": "Add a comment (optional)",
       "commentPlaceholder": "What did you like? What could be improved?",
       "submitButton": "Submit Feedback"
+    },
+    "user": {
+      "name": "Demo User",
+      "email": "user@example.com"
     }
   },
   "pl": {
@@ -240,6 +244,10 @@
       "commentLabel": "Dodaj komentarz (opcjonalnie)",
       "commentPlaceholder": "Co Ci się podobało? Co można by poprawić?",
       "submitButton": "Prześlij opinię"
+    },
+    "user": {
+      "name": "Użytkownik Demo",
+      "email": "user@example.com"
     }
   },
   "ua": {
@@ -361,6 +369,10 @@
       "commentLabel": "Додати коментар (необов’язково)",
       "commentPlaceholder": "Що вам сподобалося? Що можна було б покращити?",
       "submitButton": "Надіслати відгук"
+    },
+    "user": {
+      "name": "Демо-користувач",
+      "email": "user@example.com"
     }
   }
 }

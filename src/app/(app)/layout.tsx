@@ -1,9 +1,11 @@
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { Logo } from '@/components/logo';
 import { MainNav } from '@/components/main-nav';
+import { UserProfile } from '@/components/user-profile';
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarHeader,
   SidebarInset,
   SidebarProvider,
@@ -21,6 +23,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <SidebarContent>
             <MainNav />
           </SidebarContent>
+          <SidebarFooter>
+            <UserProfile />
+          </SidebarFooter>
         </Sidebar>
         <SidebarInset>
           <header className="flex justify-end p-4">
