@@ -9,7 +9,7 @@ export function UserProfile() {
   const t = getTranslations();
 
   return (
-    <div className="flex items-center gap-3 cursor-pointer">
+    <div className="flex items-center gap-3">
       <Avatar className="h-9 w-9">
         <AvatarImage src="https://picsum.photos/seed/user-avatar/40/40" />
         <AvatarFallback>U</AvatarFallback>
