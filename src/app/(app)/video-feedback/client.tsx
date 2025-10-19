@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoaderCircle, Upload, Wand2 } from 'lucide-react';
-import React, { useActionState, useMemo } from 'react';
+import React, { useActionState, useMemo, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -54,12 +54,13 @@ export default function VideoFeedbackClient() {
   const [state, formAction] = useActionState<State, FormData>(getFeedback, null);
   const { toast } = useToast();
 
-  const [isRatingDialogOpen, setRatingDialogOpen] = React.useState(false);
+  const [isRatingDialogOpen, setRatingDialogOpen] = useState(false);
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
 
   const showSummary = useMemo(() => {
-    return !!state?.summary;
-  }, [state?.summary]);
-  
+    return !!state?.summary && !feedbackSubmitted;
+  }, [state?.summary, feedbackSubmitted]);
+
   const form = useForm<VideoFeedbackFormValues>({
     resolver: zodResolver(videoFeedbackSchema),
     defaultValues: {
@@ -88,6 +89,7 @@ export default function VideoFeedbackClient() {
         title: "Feedback Submitted",
         description: "Thank you for your feedback!",
     });
+    setFeedbackSubmitted(true);
     form.reset();
   };
 
@@ -195,8 +197,7 @@ export default function VideoFeedbackClient() {
         {showSummary && state?.summary && (
           <CardFooter>
             <Button
-              variant="outline"
-              className="w-full"
+              className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
               onClick={() => setRatingDialogOpen(true)}
             >
               Rate

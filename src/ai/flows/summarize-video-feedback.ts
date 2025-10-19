@@ -44,11 +44,18 @@ Media: {{media url=mediaDataUri}}
 The output should be a valid HTML string with the following structure:
 - A summary rating out of 10.
 - A grammar rating out of 10.
+- A intonation rating out of 10.
+- A accent rating out of 10.
+- A pronunciation rating out of 10.
+- A sentence structure rating out of 10.
 - Additional detailed feedback.
 
 Example Output:
 <p><b>Summary Rate:</b> 8/10</p>
 <p><b>Grammar Rate:</b> 9/10</p>
+<p><b>Intonation Rate:</b> 7/10</p>
+<p><b>Accent Rate:</b> 6/10</p>
+<p><b>Pronunciation Rate:</b> 8/10</p>
 <p><b>Feedback:</b> Your presentation was clear and well-paced. Consider adding more specific examples to illustrate your points.</p>
 `,
 });
