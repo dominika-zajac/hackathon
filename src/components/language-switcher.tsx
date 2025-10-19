@@ -28,17 +28,17 @@ const languages = [
         <clipPath id="t">
           <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z" />
         </clipPath>
-        <g clip-path="url(#s)">
+        <g clipPath="url(#s)">
           <path d="M0,0 v30 h60 v-30 z" fill="#012169" />
-          <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6" />
+          <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6" />
           <path
             d="M0,0 L60,30 M60,0 L0,30"
-            clip-path="url(#t)"
+            clipPath="url(#t)"
             stroke="#C8102E"
-            stroke-width="4"
+            strokeWidth="4"
           />
-          <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10" />
-          <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6" />
+          <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10" />
+          <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6" />
         </g>
       </svg>
     ),
@@ -53,7 +53,7 @@ const languages = [
         width="40"
         height="20"
       >
-        <g fill-rule="evenodd" stroke-width="1.25">
+        <g fillRule="evenodd" strokeWidth="1.25">
           <path fill="#fff" d="M640 480H0V0h640z" />
           <path fill="#dc143c" d="M640 480H0V240h640z" />
         </g>
