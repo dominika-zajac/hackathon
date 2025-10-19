@@ -27,10 +27,16 @@ export default function ScheduleClient() {
   const [savedPlans, setSavedPlans] = useState<SavedPlans>({});
   const { toast } = useToast();
 
+  const plannedDates = Object.keys(savedPlans)
+    .filter((key) => savedPlans[key])
+    .map((key) => new Date(key));
+
   useEffect(() => {
     if (date) {
       const formattedDate = format(date, 'yyyy-MM-dd');
       setPlan(savedPlans[formattedDate] || '');
+    } else {
+      setPlan('');
     }
   }, [date, savedPlans]);
 
@@ -42,6 +48,11 @@ export default function ScheduleClient() {
         title: t.planSaved.title,
         description: `${t.planSaved.description} ${format(date, 'PPP')}`,
       });
+    } else if (date && !plan) {
+      const formattedDate = format(date, 'yyyy-MM-dd');
+      const newSavedPlans = { ...savedPlans };
+      delete newSavedPlans[formattedDate];
+      setSavedPlans(newSavedPlans);
     } else {
       toast({
         variant: 'destructive',
@@ -49,25 +60,6 @@ export default function ScheduleClient() {
         description: t.planError.description,
       });
     }
-  };
-
-  const DayWithDot = ({
-    displayMonth,
-    date,
-  }: {
-    displayMonth: Date;
-    date: Date;
-  }) => {
-    const formattedDate = format(date, 'yyyy-MM-dd');
-    const hasPlan = !!savedPlans[formattedDate];
-    return (
-      <div className="relative">
-        {date.getDate()}
-        {hasPlan && (
-          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full"></div>
-        )}
-      </div>
-    );
   };
 
   return (
@@ -83,8 +75,9 @@ export default function ScheduleClient() {
             selected={date}
             onSelect={setDate}
             className="rounded-md border"
-            components={{
-              DayContent: DayWithDot,
+            modifiers={{ planned: plannedDates }}
+            modifiersClassNames={{
+              planned: 'day-planned',
             }}
           />
         </CardContent>
@@ -105,8 +98,9 @@ export default function ScheduleClient() {
             className="min-h-[200px]"
             value={plan}
             onChange={(e) => setPlan(e.target.value)}
+            disabled={!date}
           />
-          <Button onClick={handleSavePlan} className="w-full">
+          <Button onClick={handleSavePlan} className="w-full" disabled={!date}>
             <Check className="mr-2" />
             {t.planFor.saveButton}
           </Button>
