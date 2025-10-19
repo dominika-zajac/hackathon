@@ -9,7 +9,8 @@
     "navigation": {
       "videoFeedback": "Video Feedback",
       "writing": "Writing",
-      "reading": "Reading"
+      "reading": "Reading",
+      "schedule": "Schedule"
     },
     "videoFeedback": {
       "title": "Video Feedback",
@@ -93,6 +94,25 @@
         "emptyState": "Your personalized reading list will appear here."
       }
     },
+    "schedule": {
+      "title": "Plan Your Day",
+      "description": "Select a date on the calendar to start planning.",
+      "planFor": {
+        "title": "Plan for",
+        "noDateSelected": "No Date Selected",
+        "description": "Add your notes, events, or reminders for the selected date below.",
+        "placeholder": "e.g., 'Team meeting at 10 AM' or 'Work on the project presentation...'",
+        "saveButton": "Save Plan"
+      },
+      "planSaved": {
+        "title": "Plan Saved!",
+        "description": "Your plan for"
+      },
+      "planError": {
+        "title": "Error",
+        "description": "Please select a date and enter a plan before saving."
+      }
+    },
     "ratingDialog": {
       "title": "Rate the Summary",
       "description": "Let us know how you found the AI-generated summary.",
@@ -110,7 +130,8 @@
     "navigation": {
       "videoFeedback": "Opinie wideo",
       "writing": "Pisanie",
-      "reading": "Czytanie"
+      "reading": "Czytanie",
+      "schedule": "Harmonogram"
     },
     "videoFeedback": {
       "title": "Opinie wideo",
@@ -194,6 +215,25 @@
         "emptyState": "Twoja spersonalizowana lista lektur pojawi się tutaj."
       }
     },
+    "schedule": {
+      "title": "Zaplanuj swój dzień",
+      "description": "Wybierz datę w kalendarzu, aby rozpocząć planowanie.",
+      "planFor": {
+        "title": "Plan na",
+        "noDateSelected": "Nie wybrano daty",
+        "description": "Dodaj swoje notatki, wydarzenia lub przypomnienia dla wybranej daty poniżej.",
+        "placeholder": "np. „Spotkanie zespołu o 10:00” lub „Praca nad prezentacją projektu...”",
+        "saveButton": "Zapisz plan"
+      },
+      "planSaved": {
+        "title": "Plan zapisany!",
+        "description": "Twój plan na"
+      },
+      "planError": {
+        "title": "Błąd",
+        "description": "Wybierz datę i wprowadź plan przed zapisaniem."
+      }
+    },
     "ratingDialog": {
       "title": "Oceń podsumowanie",
       "description": "Daj nam znać, jak oceniasz podsumowanie wygenerowane przez sztuczną inteligencję.",
@@ -211,7 +251,8 @@
     "navigation": {
       "videoFeedback": "Відео-відгук",
       "writing": "Письмо",
-      "reading": "Читання"
+      "reading": "Читання",
+      "schedule": "Розклад"
     },
     "videoFeedback": {
       "title": "Відео-відгук",
@@ -293,6 +334,25 @@
         "description": "На основі ваших даних, ось кілька матеріалів, які можуть вам сподобатися.",
         "reasoning": "Обґрунтування",
         "emptyState": "Ваш персоналізований список для читання з’явиться тут."
+      }
+    },
+    "schedule": {
+      "title": "Сплануйте свій день",
+      "description": "Виберіть дату в календарі, щоб почати планування.",
+      "planFor": {
+        "title": "План на",
+        "noDateSelected": "Дата не вибрана",
+        "description": "Додайте свої нотатки, події або нагадування для вибраної дати нижче.",
+        "placeholder": "напр., 'Зустріч команди о 10:00' або 'Робота над презентацією проекту...'",
+        "saveButton": "Зберегти план"
+      },
+      "planSaved": {
+        "title": "План збережено!",
+        "description": "Ваш план на"
+      },
+      "planError": {
+        "title": "Помилка",
+        "description": "Будь ласка, виберіть дату та введіть план перед збереженням."
       }
     },
     "ratingDialog": {
