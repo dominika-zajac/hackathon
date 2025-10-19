@@ -8,8 +8,17 @@ export interface State {
   error?: string;
 }
 
-const toDataURI = (buffer: Buffer, mimeType: string): string =>
-  `data:${mimeType};base64,${buffer.toString('base64')}`;
+const toDataURI = (arrayBuffer: ArrayBuffer, mimeType: string): string => {
+  const
+   uint8Array = new Uint8Array(arrayBuffer);
+  let
+   binary = '';
+  uint8Array.forEach((byte) => {
+    binary += String.fromCharCode(byte);
+  });
+  const base64 = btoa(binary);
+  return `data:${mimeType};base64,${base64}`;
+}
 
 const videoFeedbackSchema = z.object({
   media: z.instanceof(File),
@@ -31,8 +40,8 @@ export async function getFeedback(
 
   try {
     const { media, feedbackRequest } = validation.data;
-    const mediaBuffer = Buffer.from(await media.arrayBuffer());
-    const mediaDataUri = toDataURI(mediaBuffer, media.type);
+    const mediaArrayBuffer = await media.arrayBuffer();
+    const mediaDataUri = toDataURI(mediaArrayBuffer, media.type);
 
     const result = await summarizeVideoFeedback({
       mediaDataUri,
