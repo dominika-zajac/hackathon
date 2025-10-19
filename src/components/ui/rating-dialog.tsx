@@ -76,7 +76,7 @@ export function RatingDialog({
               placeholder="What did you like? What could be improved?"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              className="mt-2"
+              className="mt-2 bg-muted"
             />
           </div>
         </div>
