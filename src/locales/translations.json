@@ -134,9 +134,9 @@
         "description": "Choose your language proficiency level.",
         "placeholder": "Select language level",
         "levels": {
-          "beginner": "Beginner",
-          "intermediate": "Intermediate",
-          "advanced": "Advanced"
+          "beginner": "Beginner (A1-A2)",
+          "intermediate": "Intermediate (B1-B2)",
+          "advanced": "Advanced (C1-C2)"
         }
       }
     }
@@ -275,9 +275,9 @@
         "description": "Wybierz swój poziom znajomości języka.",
         "placeholder": "Wybierz poziom języka",
         "levels": {
-          "beginner": "Początkujący",
-          "intermediate": "Średniozaawansowany",
-          "advanced": "Zaawansowany"
+          "beginner": "Początkujący (A1-A2)",
+          "intermediate": "Średniozaawansowany (B1-B2)",
+          "advanced": "Zaawansowany (C1-C2)"
         }
       }
     }
@@ -416,9 +416,9 @@
         "description": "Виберіть свій рівень володіння мовою.",
         "placeholder": "Виберіть рівень мови",
         "levels": {
-          "beginner": "Початківець",
-          "intermediate": "Середній",
-          "advanced": "Просунутий"
+          "beginner": "Початківець (A1-A2)",
+          "intermediate": "Середній (B1-B2)",
+          "advanced": "Просунутий (C1-C2)"
         }
       }
     }
