@@ -10,7 +10,8 @@
       "videoFeedback": "Rater of your speach",
       "writing": "Writing",
       "reading": "Reading",
-      "schedule": "Schedule"
+      "schedule": "Schedule",
+      "callPractice": "Call practice"
     },
     "videoFeedback": {
       "title": "Rater of your speach",
@@ -135,7 +136,8 @@
       "videoFeedback": "Oceniacz mowy",
       "writing": "Pisanie",
       "reading": "Czytanie",
-      "schedule": "Harmonogram"
+      "schedule": "Harmonogram",
+      "callPractice": "Praktyka rozmów"
     },
     "videoFeedback": {
       "title": "Oceniacz twojej mowy",
@@ -260,7 +262,8 @@
       "videoFeedback": "Оцінювач мови",
       "writing": "Письмо",
       "reading": "Читання",
-      "schedule": "Розклад"
+      "schedule": "Розклад",
+      "callPractice": "Практика дзвінків"
     },
     "videoFeedback": {
       "title": "Оцінювач вашої мови",
