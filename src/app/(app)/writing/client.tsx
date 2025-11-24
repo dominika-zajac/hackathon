@@ -148,32 +148,6 @@ export default function WritingClient() {
               <input type="hidden" name="level" value="intermediate" />
               <GenerateButton />
             </form>
-
-            {generationState?.audioDataUri && (
-              <div className="space-y-4 pt-4">
-                <audio
-                  ref={audioRef}
-                  src={generationState.audioDataUri}
-                  controls
-                  className="w-full"
-                />
-                <div className="space-y-2">
-                  <FormLabel>{t.writing.speed.label}</FormLabel>
-                  <Slider
-                    defaultValue={[1]}
-                    min={0.5}
-                    max={1.5}
-                    step={0.1}
-                    onValueChange={(value) => setPlaybackRate(value[0])}
-                  />
-                  <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>{t.writing.speed.slow}</span>
-                    <span>{t.writing.speed.normal}</span>
-                    <span>{t.writing.speed.fast}</span>
-                  </div>
-                </div>
-              </div>
-            )}
           </CardContent>
         </Card>
 
@@ -193,7 +167,32 @@ export default function WritingClient() {
                 })(evt);
               }}
             >
-              <CardContent>
+              <CardContent className="space-y-6">
+                {generationState?.audioDataUri && (
+                  <div className="space-y-4 pt-4">
+                    <audio
+                      ref={audioRef}
+                      src={generationState.audioDataUri}
+                      controls
+                      className="w-full"
+                    />
+                    <div className="space-y-2">
+                      <FormLabel>{t.writing.speed.label}</FormLabel>
+                      <Slider
+                        defaultValue={[1]}
+                        min={0.5}
+                        max={1.5}
+                        step={0.1}
+                        onValueChange={(value) => setPlaybackRate(value[0])}
+                      />
+                      <div className="flex justify-between text-xs text-muted-foreground">
+                        <span>{t.writing.speed.slow}</span>
+                        <span>{t.writing.speed.normal}</span>
+                        <span>{t.writing.speed.fast}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 <input
                   type="hidden"
                   name="originalText"
