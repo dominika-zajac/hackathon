@@ -8,7 +8,7 @@
     },
     "navigation": {
       "videoFeedback": "Speech Evaluator",
-      "writing": "Writing",
+      "writing": "Dictation Practice",
       "reading": "Reading",
       "schedule": "Schedule",
       "callPractice": "Call practice",
@@ -159,7 +159,7 @@
     },
     "navigation": {
       "videoFeedback": "Ewaluator mowy",
-      "writing": "Pisanie",
+      "writing": "Praktyka dyktanda",
       "reading": "Czytanie",
       "schedule": "Harmonogram",
       "callPractice": "Praktyka rozmów",
@@ -310,7 +310,7 @@
     },
     "navigation": {
       "videoFeedback": "Оцінювач мовлення",
-      "writing": "Письмо",
+      "writing": "Практика диктанту",
       "reading": "Читання",
       "schedule": "Розклад",
       "callPractice": "Практика дзвінків",
