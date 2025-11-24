@@ -60,7 +60,6 @@ export default function ReadingClient() {
     useActionState<AnalysisState, FormData>(getAnalysis, null);
 
   const [isRecording, setIsRecording] = useState(false);
-  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
 
   const handleStartRecording = async () => {
@@ -73,7 +72,10 @@ export default function ReadingClient() {
       };
       mediaRecorderRef.current.onstop = () => {
         const blob = new Blob(chunks, { type: 'audio/webm' });
-        setAudioBlob(blob);
+        const formData = new FormData();
+        formData.append('media', blob, 'recording.webm');
+        formData.append('language', language);
+        analysisAction(formData);
       };
       mediaRecorderRef.current.start();
       setIsRecording(true);
@@ -98,16 +100,6 @@ export default function ReadingClient() {
       setIsRecording(false);
     }
   };
-
-  useEffect(() => {
-    if (audioBlob) {
-      const formData = new FormData();
-      formData.append('media', audioBlob, 'recording.webm');
-      formData.append('language', language);
-      analysisAction(formData);
-      setAudioBlob(null);
-    }
-  }, [audioBlob, analysisAction, language]);
 
   useEffect(() => {
     if (generationState?.error) {
