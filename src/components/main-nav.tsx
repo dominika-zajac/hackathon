@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BookOpen, PenSquare, Video, Calendar, Phone } from 'lucide-react';
+import { BookOpen, PenSquare, Video, Calendar, Phone, Settings } from 'lucide-react';
 import { useLanguage } from '@/context/language-context';
 
 import {
@@ -17,6 +17,7 @@ const navItemsConfig = [
   { href: '/reading', translationKey: 'reading', icon: BookOpen },
   { href: '/schedule', translationKey: 'schedule', icon: Calendar },
   { href: '/call-practice', translationKey: 'callPractice', icon: Phone },
+  { href: '/settings', translationKey: 'settings', icon: Settings },
 ];
 
 export function MainNav() {

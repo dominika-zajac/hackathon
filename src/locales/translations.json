@@ -11,7 +11,8 @@
       "writing": "Writing",
       "reading": "Reading",
       "schedule": "Schedule",
-      "callPractice": "Call practice"
+      "callPractice": "Call practice",
+      "settings": "Settings"
     },
     "videoFeedback": {
       "title": "Speech Evaluator",
@@ -127,7 +128,10 @@
     },
     "settings": {
       "title": "Settings",
+      "description": "Manage your application settings.",
       "languageLevel": {
+        "title": "Language Level",
+        "description": "Choose your language proficiency level.",
         "placeholder": "Select language level",
         "levels": {
           "beginner": "Beginner",
@@ -148,7 +152,8 @@
       "writing": "Pisanie",
       "reading": "Czytanie",
       "schedule": "Harmonogram",
-      "callPractice": "Praktyka rozmów"
+      "callPractice": "Praktyka rozmów",
+      "settings": "Ustawienia"
     },
     "videoFeedback": {
       "title": "Ewaluator mowy",
@@ -264,7 +269,10 @@
     },
     "settings": {
       "title": "Ustawienia",
+      "description": "Zarządzaj ustawieniami aplikacji.",
       "languageLevel": {
+        "title": "Poziom języka",
+        "description": "Wybierz swój poziom znajomości języka.",
         "placeholder": "Wybierz poziom języka",
         "levels": {
           "beginner": "Początkujący",
@@ -285,7 +293,8 @@
       "writing": "Письмо",
       "reading": "Читання",
       "schedule": "Розклад",
-      "callPractice": "Практика дзвінків"
+      "callPractice": "Практика дзвінків",
+      "settings": "Налаштування"
     },
     "videoFeedback": {
       "title": "Оцінювач мовлення",
@@ -401,7 +410,10 @@
     },
     "settings": {
       "title": "Налаштування",
+      "description": "Керуйте налаштуваннями вашої програми.",
       "languageLevel": {
+        "title": "Рівень мови",
+        "description": "Виберіть свій рівень володіння мовою.",
         "placeholder": "Виберіть рівень мови",
         "levels": {
           "beginner": "Початківець",

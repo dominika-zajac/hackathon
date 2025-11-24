@@ -20,7 +20,7 @@ export function Settings() {
       <div className="flex items-center gap-2">
         <SettingsIcon className="h-5 w-5 text-sidebar-foreground" />
         <span className="text-sm font-medium text-sidebar-foreground">
-          {t.settings.title}
+          {t.navigation.settings}
         </span>
       </div>
       <Select defaultValue="intermediate">
