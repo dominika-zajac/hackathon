@@ -13,7 +13,7 @@
       "schedule": "Schedule"
     },
     "videoFeedback": {
-      "title": "Video Feedback",
+      "title": "Rater of your speach",
       "refineContent": {
         "title": "Refine Your Content",
         "description": "Upload a video or audio file and tell our AI what you'd like feedback on."
@@ -138,7 +138,7 @@
       "schedule": "Harmonogram"
     },
     "videoFeedback": {
-      "title": "Opinie wideo",
+      "title": "Oceniacz twojej mowy",
       "refineContent": {
         "title": "Dopracuj swoją treść",
         "description": "Prześlij plik wideo lub audio i powiedz naszej sztucznej inteligencji, na czym Ci zależy."
@@ -263,7 +263,7 @@
       "schedule": "Розклад"
     },
     "videoFeedback": {
-      "title": "Відео-відгук",
+      "title": "Оцінювач вашої мови",
       "refineContent": {
         "title": "Вдосконалюйте свій контент",
         "description": "Завантажте відео або аудіофайл і скажіть нашому ШІ, на що ви б хотіли отримати відгук."
