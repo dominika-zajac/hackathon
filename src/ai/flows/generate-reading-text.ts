@@ -39,7 +39,8 @@ const prompt = ai.definePrompt({
   name: 'generateReadingTextPrompt',
   input: { schema: GenerateReadingTextInputSchema },
   output: { schema: GenerateReadingTextOutputSchema },
-  prompt: `Generate a new, unique, short text for reading practice in {{{language}}} for a person with a {{{level}}} language level. The text should be between 120 and 170 words. The topic should be about everyday life, technology, or nature. Do not repeat texts you have generated before.`,
+  prompt: 
+  `Generate a new, unique, short text for reading practice in {{{language}}} for a person with a {{{level}}} language level. The text should be between 120 and 170 words. The topic should be about everyday life, technology, or nature. Do not repeat texts you have generated before. Evaluate only: intonation on a scale from 1 to 10; accent on a scale from 1 to 10.`,
 });
 
 const generateReadingTextFlow = ai.defineFlow(
