@@ -18,6 +18,7 @@ const SummarizeVideoFeedbackInputSchema = z.object({
       "A video or audio file, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
   feedbackRequest: z.string().describe('The specific feedback requested for the video or audio.'),
+  language: z.string().describe('The language for the AI to respond in (e.g., "English", "Polish").'),
 });
 export type SummarizeVideoFeedbackInput = z.infer<typeof SummarizeVideoFeedbackInputSchema>;
 
@@ -50,6 +51,8 @@ const prompt = ai.definePrompt({
 You will analyze the media and provide a summary of key feedback points, focusing on areas for improvement as requested by the user. If the user asks to "check the speak errors of user", you should analyze the audio track and identify any grammar mistakes, filler words, or awkward phrasing, and suggest improvements.
 
 Based on the mistakes you identify, generate a list of 2-3 relevant YouTube video lessons. For each video, provide a title, a valid YouTube URL, and a short description of why it's helpful.
+
+IMPORTANT: Your entire response, including the summary, feedback, and video suggestions, MUST be in the following language: {{{language}}}.
 
 User's feedback request: {{{feedbackRequest}}}
 Media: {{media url=mediaDataUri}}

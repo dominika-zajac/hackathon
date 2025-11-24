@@ -13,6 +13,7 @@ export interface State extends SummarizeVideoFeedbackOutput {
 const videoFeedbackSchema = z.object({
   media: z.instanceof(File),
   feedbackRequest: z.string(),
+  language: z.string(),
 });
 
 function toBase64(buffer: ArrayBuffer) {
@@ -32,13 +33,14 @@ export async function getFeedback(
   const validation = videoFeedbackSchema.safeParse({
     media: formData.get('media'),
     feedbackRequest: formData.get('feedbackRequest'),
+    language: formData.get('language'),
   });
 
   if (!validation.success) {
     return { error: 'Invalid input. A file and feedback request are required.' };
   }
 
-  const { media, feedbackRequest } = validation.data;
+  const { media, feedbackRequest, language } = validation.data;
 
   try {
     const mediaBuffer = await media.arrayBuffer();
@@ -47,6 +49,7 @@ export async function getFeedback(
     const result = await summarizeVideoFeedback({
       mediaDataUri,
       feedbackRequest,
+      language,
     });
     return result;
   } catch (e: any) {

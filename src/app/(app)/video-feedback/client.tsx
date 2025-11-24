@@ -58,7 +58,7 @@ function SubmitButton() {
 }
 
 export default function VideoFeedbackClient() {
-  const { getTranslations } = useLanguage();
+  const { language, getTranslations } = useLanguage();
   const t = getTranslations();
   const [state, formAction] = useActionState<State, FormData>(getFeedback, {
     summary: '',
@@ -117,6 +117,7 @@ export default function VideoFeedbackClient() {
           </CardHeader>
           <Form {...form}>
             <form action={formAction} className="space-y-4">
+              <input type="hidden" name="language" value={language} />
               <CardContent className="space-y-4">
                 <FormField
                   control={form.control}
