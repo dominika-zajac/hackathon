@@ -1,3 +1,6 @@
+
+'use client';
+
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { Logo } from '@/components/logo';
 import { MainNav } from '@/components/main-nav';
