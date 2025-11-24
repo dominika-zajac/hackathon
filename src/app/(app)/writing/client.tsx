@@ -2,13 +2,24 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoaderCircle, Pilcrow } from 'lucide-react';
-import React, { useActionState } from 'react';
+import {
+  LoaderCircle,
+  Play,
+  Mic,
+  FileCheck,
+  RotateCcw,
+} from 'lucide-react';
+import React, { useActionState, useState, useRef, useEffect } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { adaptTone, type State } from './actions';
+import {
+  getDictation,
+  getAnalysis,
+  type GenerationState,
+  type AnalysisState,
+} from './actions';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -21,39 +32,51 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
+import { Slider } from '@/components/ui/slider';
 import { Textarea } from '@/components/ui/textarea';
 import { useLanguage } from '@/context/language-context';
 import { useToast } from '@/hooks/use-toast';
 
 const writingSchema = z.object({
-  text: z.string().min(20, 'Please enter at least 20 characters to adapt.'),
-  desiredTone: z.string({ required_error: 'Please select a tone.' }),
+  userText: z
+    .string()
+    .min(1, 'Please enter the text you heard from the dictation.'),
 });
 
 type WritingFormValues = z.infer<typeof writingSchema>;
 
-function SubmitButton() {
+function GenerateButton() {
+  const { pending } = useFormStatus();
+  const { getTranslations } = useLanguage();
+  const t = getTranslations();
+  return (
+    <Button
+      type="submit"
+      disabled={pending}
+      className="w-full"
+      variant="secondary"
+    >
+      {pending && <LoaderCircle className="mr-2 animate-spin" />}
+      <Play className="mr-2" />
+      {t.writing.startDictationButton}
+    </Button>
+  );
+}
+function AnalyzeButton() {
   const { pending } = useFormStatus();
   const { getTranslations } = useLanguage();
   const t = getTranslations();
   return (
     <Button type="submit" disabled={pending} className="w-full">
       {pending && <LoaderCircle className="mr-2 animate-spin" />}
-      {t.writing.adaptToneButton}
+      <FileCheck className="mr-2" />
+      {t.writing.analyzeButton}
     </Button>
   );
 }
@@ -61,137 +84,177 @@ function SubmitButton() {
 export default function WritingClient() {
   const { getTranslations } = useLanguage();
   const t = getTranslations();
-  const [state, formAction] = useActionState<State, FormData>(adaptTone, null);
   const { toast } = useToast();
+
+  const [generationState, generationAction, isGenerationPending] =
+    useActionState<GenerationState, FormData>(getDictation, null);
+  const [analysisState, analysisAction, isAnalysisPending] =
+    useActionState<AnalysisState, FormData>(getAnalysis, null);
+
+  const [playbackRate, setPlaybackRate] = useState(1);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const form = useForm<WritingFormValues>({
     resolver: zodResolver(writingSchema),
     defaultValues: {
-      text: '',
-      desiredTone: undefined,
+      userText: '',
     },
   });
 
-  React.useEffect(() => {
-    if (state?.error) {
+  useEffect(() => {
+    if (generationState?.error) {
       toast({
         variant: 'destructive',
-        title: 'An error occurred',
-        description: state.error,
+        title: 'Error generating dictation',
+        description: generationState.error,
       });
     }
-  }, [state, toast]);
+  }, [generationState, toast]);
+
+  useEffect(() => {
+    if (analysisState?.error) {
+      toast({
+        variant: 'destructive',
+        title: 'Error analyzing text',
+        description: analysisState.error,
+      });
+    }
+  }, [analysisState, toast]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.playbackRate = playbackRate;
+    }
+  }, [playbackRate]);
+
+  const handleReset = () => {
+    form.reset();
+    // A bit of a hack to reset the action states
+    generationAction(new FormData());
+    analysisAction(new FormData());
+  };
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
-      <Card>
-        <CardHeader>
-          <CardTitle>{t.writing.adaptTone.title}</CardTitle>
-          <CardDescription>{t.writing.adaptTone.description}</CardDescription>
-        </CardHeader>
-        <Form {...form}>
-          <form action={formAction} className="space-y-4">
-            <CardContent className="space-y-4">
-              <FormField
-                control={form.control}
-                name="text"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t.writing.originalText.label}</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder={t.writing.originalText.placeholder}
-                        className="min-h-[200px]"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="desiredTone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t.writing.desiredTone.label}</FormLabel>
-                    <Select
-                      name={field.name}
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+      <div className="flex flex-col gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>{t.writing.dictation.title}</CardTitle>
+            <CardDescription>{t.writing.dictation.description}</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <form action={generationAction} className="space-y-4">
+              <input type="hidden" name="language" value="English" />
+              <input type="hidden" name="level" value="intermediate" />
+              <GenerateButton />
+            </form>
+
+            {generationState?.audioDataUri && (
+              <div className="space-y-4 pt-4">
+                <audio
+                  ref={audioRef}
+                  src={generationState.audioDataUri}
+                  controls
+                  className="w-full"
+                />
+                <div className="space-y-2">
+                  <FormLabel>{t.writing.speed.label}</FormLabel>
+                  <Slider
+                    defaultValue={[1]}
+                    min={0.5}
+                    max={1.5}
+                    step={0.1}
+                    onValueChange={(value) => setPlaybackRate(value[0])}
+                  />
+                  <div className="flex justify-between text-xs text-muted-foreground">
+                    <span>{t.writing.speed.slow}</span>
+                    <span>{t.writing.speed.normal}</span>
+                    <span>{t.writing.speed.fast}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>{t.writing.yourTranscription.title}</CardTitle>
+            <CardDescription>
+              {t.writing.yourTranscription.description}
+            </CardDescription>
+          </CardHeader>
+          <Form {...form}>
+            <form
+              action={analysisAction}
+              onSubmit={(evt) => {
+                form.handleSubmit(() => {
+                  analysisAction(evt.currentTarget);
+                })(evt);
+              }}
+            >
+              <CardContent>
+                <input
+                  type="hidden"
+                  name="originalText"
+                  value={generationState?.dictationText || ''}
+                />
+                <input type="hidden" name="language" value="English" />
+                <FormField
+                  control={form.control}
+                  name="userText"
+                  render={({ field }) => (
+                    <FormItem>
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue
-                            placeholder={t.writing.desiredTone.placeholder}
-                          />
-                        </SelectTrigger>
+                        <Textarea
+                          placeholder={t.writing.yourTranscription.placeholder}
+                          className="min-h-[200px]"
+                          {...field}
+                          disabled={!generationState?.dictationText}
+                        />
                       </FormControl>
-                      <SelectContent>
-                        <SelectItem value="more formal">
-                          {t.writing.desiredTone.tones.formal}
-                        </SelectItem>
-                        <SelectItem value="more persuasive">
-                          {t.writing.desiredTone.tones.persuasive}
-                        </SelectItem>
-                        <SelectItem value="more friendly">
-                          {t.writing.desiredTone.tones.friendly}
-                        </SelectItem>
-                        <SelectItem value="more confident">
-                          {t.writing.desiredTone.tones.confident}
-                        </SelectItem>
-                        <SelectItem value="more empathetic">
-                          {t.writing.desiredTone.tones.empathetic}
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormDescription>
-                      {t.writing.desiredTone.description}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-            <CardFooter>
-              <SubmitButton />
-            </CardFooter>
-          </form>
-        </Form>
-      </Card>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+              <CardFooter className="flex-col gap-2">
+                <AnalyzeButton />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="w-full"
+                  onClick={handleReset}
+                >
+                  <RotateCcw className="mr-2" />
+                  {t.writing.startOverButton}
+                </Button>
+              </CardFooter>
+            </form>
+          </Form>
+        </Card>
+      </div>
 
       <Card className="flex flex-col">
         <CardHeader>
-          <CardTitle>{t.writing.aiSuggestions.title}</CardTitle>
-          <CardDescription>
-            {t.writing.aiSuggestions.description}
-          </CardDescription>
+          <CardTitle>{t.writing.analysis.title}</CardTitle>
+          <CardDescription>{t.writing.analysis.description}</CardDescription>
         </CardHeader>
         <CardContent className="flex-1 space-y-6">
-          {state?.adaptedText ? (
-            <div className="space-y-6">
-              <div>
-                <h3 className="font-semibold text-foreground">
-                  {t.writing.aiSuggestions.adaptedText}
-                </h3>
-                <p className="mt-2 text-sm text-muted-foreground bg-secondary p-4 rounded-md">
-                  {state.adaptedText}
-                </p>
-              </div>
-              <Separator />
-              <div>
-                <h3 className="font-semibold text-foreground">
-                  {t.writing.aiSuggestions.explanation}
-                </h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {state.explanation}
-                </p>
-              </div>
+          {isAnalysisPending ? (
+            <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">
+              <LoaderCircle className="w-12 h-12 animate-spin" />
+              <p>{t.writing.analysis.loading}</p>
             </div>
+          ) : analysisState?.analysis ? (
+            <div
+              className="p-4 text-base border rounded-md bg-secondary"
+              dangerouslySetInnerHTML={{ __html: analysisState.analysis }}
+            />
           ) : (
             <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">
-              <Pilcrow className="w-12 h-12" />
-              <p className="max-w-xs">{t.writing.aiSuggestions.emptyState}</p>
+              <Mic className="w-12 h-12" />
+              <p className="max-w-xs">{t.writing.analysis.emptyState}</p>
             </div>
           )}
         </CardContent>

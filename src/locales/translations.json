@@ -43,34 +43,30 @@
       "rateButton": "Rate"
     },
     "writing": {
-      "title": "Writing Assistant",
-      "adaptTone": {
-        "title": "Adapt Your Tone",
-        "description": "Enter your text and choose a desired tone. Our AI will adapt it for you."
+      "title": "Dictation Practice",
+      "dictation": {
+        "title": "AI Dictation",
+        "description": "Click the button to start an AI-generated dictation based on your settings."
       },
-      "originalText": {
-        "label": "Original Text",
-        "placeholder": "Enter your text here..."
+      "startDictationButton": "Start Dictation",
+      "speed": {
+        "label": "Playback Speed",
+        "slow": "Slow",
+        "normal": "Normal",
+        "fast": "Fast"
       },
-      "desiredTone": {
-        "label": "Desired Tone",
-        "placeholder": "Select a tone",
-        "description": "Choose the tone you want to convey.",
-        "tones": {
-          "formal": "Formal",
-          "persuasive": "Persuasive",
-          "friendly": "Friendly",
-          "confident": "Confident",
-          "empathetic": "Empathetic"
-        }
+      "yourTranscription": {
+        "title": "Your Transcription",
+        "description": "Listen to the audio and type what you hear in the text box below.",
+        "placeholder": "Start typing here..."
       },
-      "adaptToneButton": "Adapt Tone",
-      "aiSuggestions": {
-        "title": "AI Suggestions",
-        "description": "Here is the adapted text and an explanation of the changes.",
-        "adaptedText": "Adapted Text",
-        "explanation": "Explanation",
-        "emptyState": "Your adapted text will appear here."
+      "analyzeButton": "Analyze My Dictation",
+      "startOverButton": "Start Over",
+      "analysis": {
+        "title": "AI Analysis",
+        "description": "Here's the analysis of your dictation. Corrections are marked for you.",
+        "loading": "Analyzing your text...",
+        "emptyState": "Your analyzed text with corrections will appear here."
       }
     },
     "reading": {
@@ -139,6 +135,13 @@
           "intermediate": "Intermediate (B1-B2)",
           "advanced": "Advanced (C1-C2)"
         }
+      },
+      "studyLanguage": {
+        "title": "Language of Study",
+        "description": "Choose the language you want to practice.",
+        "placeholder": "Select a language...",
+        "searchPlaceholder": "Search language...",
+        "notFound": "No language found."
       }
     }
   },
@@ -185,34 +188,30 @@
       "rateButton": "Oceń"
     },
     "writing": {
-      "title": "Asystent pisania",
-      "adaptTone": {
-        "title": "Dostosuj swój ton",
-        "description": "Wprowadź tekst i wybierz pożądany ton. Nasza sztuczna inteligencja dostosuje go dla Ciebie."
+      "title": "Praktyka dyktanda",
+      "dictation": {
+        "title": "Dyktando AI",
+        "description": "Kliknij przycisk, aby rozpocząć dyktando generowane przez AI na podstawie Twoich ustawień."
       },
-      "originalText": {
-        "label": "Oryginalny tekst",
-        "placeholder": "Wpisz swój tekst tutaj..."
+      "startDictationButton": "Rozpocznij dyktando",
+      "speed": {
+        "label": "Prędkość odtwarzania",
+        "slow": "Wolno",
+        "normal": "Normalnie",
+        "fast": "Szybko"
       },
-      "desiredTone": {
-        "label": "Pożądany ton",
-        "placeholder": "Wybierz ton",
-        "description": "Wybierz ton, który chcesz przekazać.",
-        "tones": {
-          "formal": "Formalny",
-          "persuasive": "Przekonujący",
-          "friendly": "Przyjazny",
-          "confident": "Pewny siebie",
-          "empathetic": "Empatyczny"
-        }
+      "yourTranscription": {
+        "title": "Twoja transkrypcja",
+        "description": "Posłuchaj nagrania i wpisz to, co słyszysz, w polu tekstowym poniżej.",
+        "placeholder": "Zacznij pisać tutaj..."
       },
-      "adaptToneButton": "Dostosuj ton",
-      "aiSuggestions": {
-        "title": "Sugestie AI",
-        "description": "Oto dostosowany tekst i wyjaśnienie zmian.",
-        "adaptedText": "Dostosowany tekst",
-        "explanation": "Wyjaśnienie",
-        "emptyState": "Twój dostosowany tekst pojawi się tutaj."
+      "analyzeButton": "Analizuj moje dyktando",
+      "startOverButton": "Zacznij od nowa",
+      "analysis": {
+        "title": "Analiza AI",
+        "description": "Oto analiza Twojego dyktanda. Poprawki są zaznaczone.",
+        "loading": "Analizowanie tekstu...",
+        "emptyState": "Twój przeanalizowany tekst z poprawkami pojawi się tutaj."
       }
     },
     "reading": {
@@ -281,6 +280,13 @@
           "intermediate": "Średniozaawansowany (B1-B2)",
           "advanced": "Zaawansowany (C1-C2)"
         }
+      },
+      "studyLanguage": {
+        "title": "Język nauki",
+        "description": "Wybierz język, który chcesz ćwiczyć.",
+        "placeholder": "Wybierz język...",
+        "searchPlaceholder": "Szukaj języka...",
+        "notFound": "Nie znaleziono języka."
       }
     }
   },
@@ -327,34 +333,30 @@
       "rateButton": "Оцінити"
     },
     "writing": {
-      "title": "Помічник у написанні",
-      "adaptTone": {
-        "title": "Адаптуйте свій тон",
-        "description": "Введіть свій текст і виберіть бажаний тон. Наш ШІ адаптує його для вас."
+      "title": "Практика диктанту",
+      "dictation": {
+        "title": "Диктант ШІ",
+        "description": "Натисніть кнопку, щоб розпочати диктант, згенерований ШІ на основі ваших налаштувань."
       },
-      "originalText": {
-        "label": "Оригінальний текст",
-        "placeholder": "Введіть свій текст тут..."
+      "startDictationButton": "Розпочати диктант",
+      "speed": {
+        "label": "Швидкість відтворення",
+        "slow": "Повільно",
+        "normal": "Звичайно",
+        "fast": "Швидко"
       },
-      "desiredTone": {
-        "label": "Бажаний тон",
-        "placeholder": "Виберіть тон",
-        "description": "Виберіть тон, який ви хочете передати.",
-        "tones": {
-          "formal": "Формальний",
-          "persuasive": "Переконливий",
-          "friendly": "Дружній",
-          "confident": "Впевнений",
-          "empathetic": "Співчутливий"
-        }
+      "yourTranscription": {
+        "title": "Ваша транскрипція",
+        "description": "Прослухайте аудіо та введіть те, що чуєте, у текстовому полі нижче.",
+        "placeholder": "Почніть вводити тут..."
       },
-      "adaptToneButton": "Адаптувати тон",
-      "aiSuggestions": {
-        "title": "Пропозиції ШІ",
-        "description": "Ось адаптований текст і пояснення змін.",
-        "adaptedText": "Адаптований текст",
-        "explanation": "Пояснення",
-        "emptyState": "Ваш адаптований текст з’явиться тут."
+      "analyzeButton": "Проаналізувати мій диктант",
+      "startOverButton": "Почати спочатку",
+      "analysis": {
+        "title": "Аналіз ШІ",
+        "description": "Ось аналіз вашого диктанту. Виправлення позначені для вас.",
+        "loading": "Аналіз вашого тексту...",
+        "emptyState": "Ваш проаналізований текст з виправленнями з'явиться тут."
       }
     },
     "reading": {
@@ -423,6 +425,13 @@
           "intermediate": "Середній (B1-B2)",
           "advanced": "Просунутий (C1-C2)"
         }
+      },
+      "studyLanguage": {
+        "title": "Мова навчання",
+        "description": "Виберіть мову, яку ви хочете практикувати.",
+        "placeholder": "Виберіть мову...",
+        "searchPlaceholder": "Шукати мову...",
+        "notFound": "Мову не знайдено."
       }
     }
   }
