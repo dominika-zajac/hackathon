@@ -7,14 +7,14 @@
       "ua": "Ukrainian"
     },
     "navigation": {
-      "videoFeedback": "Rater of your speach",
+      "videoFeedback": "Speech Evaluator",
       "writing": "Writing",
       "reading": "Reading",
       "schedule": "Schedule",
       "callPractice": "Call practice"
     },
     "videoFeedback": {
-      "title": "Rater of your speach",
+      "title": "Speech Evaluator",
       "refineContent": {
         "title": "Refine Your Content",
         "description": "Upload a video or audio file and tell our AI what you'd like feedback on."
@@ -133,14 +133,14 @@
       "ua": "Ukraiński"
     },
     "navigation": {
-      "videoFeedback": "Oceniacz mowy",
+      "videoFeedback": "Ewaluator mowy",
       "writing": "Pisanie",
       "reading": "Czytanie",
       "schedule": "Harmonogram",
       "callPractice": "Praktyka rozmów"
     },
     "videoFeedback": {
-      "title": "Oceniacz twojej mowy",
+      "title": "Ewaluator mowy",
       "refineContent": {
         "title": "Dopracuj swoją treść",
         "description": "Prześlij plik wideo lub audio i powiedz naszej sztucznej inteligencji, na czym Ci zależy."
@@ -259,14 +259,14 @@
       "ua": "Українська"
     },
     "navigation": {
-      "videoFeedback": "Оцінювач мови",
+      "videoFeedback": "Оцінювач мовлення",
       "writing": "Письмо",
       "reading": "Читання",
       "schedule": "Розклад",
       "callPractice": "Практика дзвінків"
     },
     "videoFeedback": {
-      "title": "Оцінювач вашої мови",
+      "title": "Оцінювач мовлення",
       "refineContent": {
         "title": "Вдосконалюйте свій контент",
         "description": "Завантажте відео або аудіофайл і скажіть нашому ШІ, на що ви б хотіли отримати відгук."
