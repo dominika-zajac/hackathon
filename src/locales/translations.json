@@ -12,7 +12,8 @@
       "reading": "Reading",
       "schedule": "Schedule",
       "callPractice": "Call practice",
-      "settings": "Settings"
+      "settings": "Settings",
+      "lessons": "Lessons"
     },
     "videoFeedback": {
       "title": "Speech Evaluator",
@@ -153,7 +154,8 @@
       "reading": "Czytanie",
       "schedule": "Harmonogram",
       "callPractice": "Praktyka rozmów",
-      "settings": "Ustawienia"
+      "settings": "Ustawienia",
+      "lessons": "Lekcje"
     },
     "videoFeedback": {
       "title": "Ewaluator mowy",
@@ -294,7 +296,8 @@
       "reading": "Читання",
       "schedule": "Розклад",
       "callPractice": "Практика дзвінків",
-      "settings": "Налаштування"
+      "settings": "Налаштування",
+      "lessons": "Уроки"
     },
     "videoFeedback": {
       "title": "Оцінювач мовлення",
