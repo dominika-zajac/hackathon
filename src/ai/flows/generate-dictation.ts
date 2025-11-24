@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview A flow to generate a dictation, convert it to speech, and analyze user input.
@@ -96,7 +97,7 @@ const generateTextPrompt = ai.definePrompt({
   name: 'generateDictationTextPrompt',
   input: { schema: GenerateDictationInputSchema },
   output: { schema: z.object({ dictationText: z.string() }) },
-  prompt: `Generate a short dictation text in {{{language}}} for a person with a {{{level}}} language level. The text should be between 180 and 200 words. The topic should be about everyday life, technology, or nature.`,
+  prompt: `Generate a new, unique, short dictation text in {{{language}}} for a person with a {{{level}}} language level. The text should be between 180 and 200 words. The topic should be about everyday life, technology, or nature. Do not repeat texts you have generated before.`,
 });
 
 const generateDictationFlow = ai.defineFlow(

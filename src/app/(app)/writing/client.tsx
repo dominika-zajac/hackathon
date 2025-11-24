@@ -173,9 +173,9 @@ export default function WritingClient() {
                       <Slider
                         id="speed"
                         defaultValue={[1]}
-                        min={0.5}
+                        min={0.25}
                         max={1.5}
-                        step={0.1}
+                        step={0.05}
                         onValueChange={(value) => setPlaybackRate(value[0])}
                       />
                       <div className="flex justify-between text-xs text-muted-foreground">
