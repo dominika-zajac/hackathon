@@ -7,7 +7,7 @@
       "ua": "Ukrainian"
     },
     "navigation": {
-      "videoFeedback": "Video Feedback",
+      "videoFeedback": "Rater of your speach",
       "writing": "Writing",
       "reading": "Reading",
       "schedule": "Schedule"
@@ -132,7 +132,7 @@
       "ua": "Ukraiński"
     },
     "navigation": {
-      "videoFeedback": "Opinie wideo",
+      "videoFeedback": "Oceniacz mowy",
       "writing": "Pisanie",
       "reading": "Czytanie",
       "schedule": "Harmonogram"
@@ -257,7 +257,7 @@
       "ua": "Українська"
     },
     "navigation": {
-      "videoFeedback": "Відео-відгук",
+      "videoFeedback": "Оцінювач мови",
       "writing": "Письмо",
       "reading": "Читання",
       "schedule": "Розклад"
