@@ -31,19 +31,48 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
-import { ChevronsUpDown, Check } from 'lucide-react';
+import { ChevronsUpDown, Check, Sun, Moon } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { useTheme } from '@/context/theme-context';
+import { Label } from '@/components/ui/label';
 
 export default function SettingsClient() {
   const { getTranslations } = useLanguage();
   const t = getTranslations();
+  const { theme, setTheme } = useTheme();
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('en');
 
   return (
     <div className="grid gap-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>{t.settings.theme.title}</CardTitle>
+          <CardDescription>{t.settings.theme.description}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 gap-4 max-w-sm">
+            <Button
+              variant={theme === 'light' ? 'default' : 'outline'}
+              onClick={() => setTheme('light')}
+              className="flex items-center gap-2"
+            >
+              <Sun className="w-5 h-5" />
+              {t.settings.theme.light}
+            </Button>
+            <Button
+              variant={theme === 'dark' ? 'default' : 'outline'}
+              onClick={() => setTheme('dark')}
+              className="flex items-center gap-2"
+            >
+              <Moon className="w-5 h-5" />
+              {t.settings.theme.dark}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
       <Card>
         <CardHeader>
           <CardTitle>{t.settings.languageLevel.title}</CardTitle>

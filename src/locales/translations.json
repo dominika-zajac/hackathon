@@ -126,6 +126,12 @@
     "settings": {
       "title": "Settings",
       "description": "Manage your application settings.",
+      "theme": {
+        "title": "Appearance",
+        "description": "Choose the look and feel of the application.",
+        "light": "Light",
+        "dark": "Dark"
+      },
       "languageLevel": {
         "title": "Language Level",
         "description": "Choose your language proficiency level.",
@@ -271,6 +277,12 @@
     "settings": {
       "title": "Ustawienia",
       "description": "Zarządzaj ustawieniami aplikacji.",
+      "theme": {
+        "title": "Wygląd",
+        "description": "Wybierz wygląd i styl aplikacji.",
+        "light": "Jasny",
+        "dark": "Ciemny"
+      },
       "languageLevel": {
         "title": "Poziom języka",
         "description": "Wybierz swój poziom znajomości języka.",
@@ -416,6 +428,12 @@
     "settings": {
       "title": "Налаштування",
       "description": "Керуйте налаштуваннями вашої програми.",
+      "theme": {
+        "title": "Зовнішній вигляд",
+        "description": "Виберіть вигляд і стиль програми.",
+        "light": "Світлий",
+        "dark": "Темний"
+      },
       "languageLevel": {
         "title": "Рівень мови",
         "description": "Виберіть свій рівень володіння мовою.",
