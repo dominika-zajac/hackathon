@@ -91,6 +91,6 @@
   }
   .day-planned::after {
     content: '';
-    @apply absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-destructive;
+    @apply absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-accent;
   }
 }
