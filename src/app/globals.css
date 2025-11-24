@@ -84,3 +84,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .day-planned {
+    @apply relative;
+  }
+  .day-planned::after {
+    content: '';
+    @apply absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-destructive;
+  }
+}
