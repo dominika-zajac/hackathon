@@ -12,7 +12,12 @@ import {
 import React, { useActionState, useEffect, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
-import { getAnalysis, getText, type AnalysisState, type GenerationState } from './actions';
+import {
+  getAnalysis,
+  getText,
+  type AnalysisState,
+  type GenerationState,
+} from './actions';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -24,8 +29,8 @@ import {
 } from '@/components/ui/card';
 import { useLanguage } from '@/context/language-context';
 import { useToast } from '@/hooks/use-toast';
-import { cn } from '@/lib/utils';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { useSettings } from '@/context/settings-context';
 
 function GenerateButton() {
   const { pending } = useFormStatus();
@@ -45,6 +50,7 @@ function GenerateButton() {
 
 export default function ReadingClient() {
   const { language, getTranslations } = useLanguage();
+  const { studyLanguage, languageLevel } = useSettings();
   const t = getTranslations().reading;
   const { toast } = useToast();
 
@@ -76,7 +82,8 @@ export default function ReadingClient() {
       toast({
         variant: 'destructive',
         title: 'Recording Error',
-        description: 'Could not start recording. Please check microphone permissions.',
+        description:
+          'Could not start recording. Please check microphone permissions.',
       });
     }
   };
@@ -85,7 +92,9 @@ export default function ReadingClient() {
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
       // Stop all media tracks to turn off the microphone light
-      mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
+      mediaRecorderRef.current.stream
+        .getTracks()
+        .forEach((track) => track.stop());
       setIsRecording(false);
     }
   };
@@ -102,13 +111,21 @@ export default function ReadingClient() {
 
   useEffect(() => {
     if (generationState?.error) {
-      toast({ variant: 'destructive', title: 'Generation Error', description: generationState.error });
+      toast({
+        variant: 'destructive',
+        title: 'Generation Error',
+        description: generationState.error,
+      });
     }
   }, [generationState, toast]);
 
   useEffect(() => {
     if (analysisState?.error) {
-      toast({ variant: 'destructive', title: 'Analysis Error', description: analysisState.error });
+      toast({
+        variant: 'destructive',
+        title: 'Analysis Error',
+        description: analysisState.error,
+      });
     }
   }, [analysisState, toast]);
 
@@ -117,9 +134,7 @@ export default function ReadingClient() {
       <Card>
         <CardHeader>
           <CardTitle>{t.practice.title}</CardTitle>
-          <CardDescription>
-            {t.practice.description}
-          </CardDescription>
+          <CardDescription>{t.practice.description}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <Card className="min-h-[200px] p-4 bg-muted/50">
@@ -139,7 +154,9 @@ export default function ReadingClient() {
           {!isRecording ? (
             <Button
               onClick={handleStartRecording}
-              disabled={!generationState?.text || isRecording || isAnalysisPending}
+              disabled={
+                !generationState?.text || isRecording || isAnalysisPending
+              }
               className="w-full"
             >
               <Mic className="mr-2" />
@@ -155,21 +172,21 @@ export default function ReadingClient() {
               {t.practice.stopRecording}
             </Button>
           )}
-           {isRecording && (
-              <Alert variant="destructive" className="animate-pulse">
-                <Mic className="h-4 w-4" />
-                <AlertTitle>{t.practice.recordingInProgress.title}</AlertTitle>
-                <AlertDescription>
-                  {t.practice.recordingInProgress.description}
-                </AlertDescription>
-              </Alert>
-            )}
+          {isRecording && (
+            <Alert variant="destructive" className="animate-pulse">
+              <Mic className="h-4 w-4" />
+              <AlertTitle>{t.practice.recordingInProgress.title}</AlertTitle>
+              <AlertDescription>
+                {t.practice.recordingInProgress.description}
+              </AlertDescription>
+            </Alert>
+          )}
         </CardContent>
         <CardFooter>
-          <form action={generationAction} className='w-full'>
-             <input type="hidden" name="language" value={language} />
-             <input type="hidden" name="level" value="intermediate" />
-             <GenerateButton />
+          <form action={generationAction} className="w-full">
+            <input type="hidden" name="language" value={studyLanguage} />
+            <input type="hidden" name="level" value={languageLevel} />
+            <GenerateButton />
           </form>
         </CardFooter>
       </Card>
@@ -177,13 +194,11 @@ export default function ReadingClient() {
       <Card className="flex flex-col">
         <CardHeader>
           <CardTitle>{t.analysis.title}</CardTitle>
-          <CardDescription>
-            {t.analysis.description}
-          </CardDescription>
+          <CardDescription>{t.analysis.description}</CardDescription>
         </CardHeader>
         <CardContent className="flex-1 space-y-6">
           {isAnalysisPending ? (
-             <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">
+            <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">
               <LoaderCircle className="w-12 h-12 animate-spin text-primary" />
               <p>{t.analysis.loading}</p>
             </div>
@@ -195,9 +210,7 @@ export default function ReadingClient() {
           ) : (
             <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">
               <Wand2 className="w-12 h-12" />
-              <p className="max-w-xs">
-                {t.analysis.emptyState}
-              </p>
+              <p className="max-w-xs">{t.analysis.emptyState}</p>
             </div>
           )}
         </CardContent>

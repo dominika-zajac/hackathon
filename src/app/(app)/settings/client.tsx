@@ -35,15 +35,20 @@ import { ChevronsUpDown, Check, Sun, Moon } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/context/theme-context';
-import { Label } from '@/components/ui/label';
+import { useSettings } from '@/context/settings-context';
 
 export default function SettingsClient() {
   const { getTranslations } = useLanguage();
   const t = getTranslations();
   const { theme, setTheme } = useTheme();
+  const {
+    studyLanguage,
+    setStudyLanguage,
+    languageLevel,
+    setLanguageLevel,
+  } = useSettings();
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('en');
 
   return (
     <div className="grid gap-6">
@@ -82,7 +87,12 @@ export default function SettingsClient() {
         </CardHeader>
         <CardContent>
           <div className="w-full max-w-sm">
-            <Select defaultValue="intermediate">
+            <Select
+              value={languageLevel}
+              onValueChange={(value) =>
+                setLanguageLevel(value as 'beginner' | 'intermediate' | 'advanced')
+              }
+            >
               <SelectTrigger>
                 <SelectValue
                   placeholder={t.settings.languageLevel.placeholder}
@@ -120,9 +130,10 @@ export default function SettingsClient() {
                   aria-expanded={open}
                   className="w-full justify-between"
                 >
-                  {value
-                    ? languages.find((language) => language.value === value)
-                        ?.label
+                  {studyLanguage
+                    ? languages.find(
+                        (language) => language.value === studyLanguage
+                      )?.label
                     : t.settings.studyLanguage.placeholder}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
@@ -142,14 +153,16 @@ export default function SettingsClient() {
                           key={language.value}
                           value={language.value}
                           onSelect={(currentValue) => {
-                            setValue(currentValue === value ? '' : currentValue);
+                            setStudyLanguage(
+                              currentValue === studyLanguage ? '' : currentValue
+                            );
                             setOpen(false);
                           }}
                         >
                           <Check
                             className={cn(
                               'mr-2 h-4 w-4',
-                              value === language.value
+                              studyLanguage === language.value
                                 ? 'opacity-100'
                                 : 'opacity-0'
                             )}
