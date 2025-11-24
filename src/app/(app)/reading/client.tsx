@@ -29,6 +29,8 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 function GenerateButton() {
   const { pending } = useFormStatus();
+  const { getTranslations } = useLanguage();
+  const t = getTranslations().reading;
   return (
     <Button type="submit" disabled={pending} className="w-full">
       {pending ? (
@@ -36,14 +38,14 @@ function GenerateButton() {
       ) : (
         <RefreshCcw className="mr-2" />
       )}
-      Generate New Text
+      {t.generateButton}
     </Button>
   );
 }
 
 export default function ReadingClient() {
   const { language, getTranslations } = useLanguage();
-  const t = getTranslations();
+  const t = getTranslations().reading;
   const { toast } = useToast();
 
   const [generationState, generationAction, isGenerationPending] =
@@ -114,9 +116,9 @@ export default function ReadingClient() {
     <div className="grid gap-6 md:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle>Reading Practice</CardTitle>
+          <CardTitle>{t.practice.title}</CardTitle>
           <CardDescription>
-            Read the text below and record yourself. The AI will analyze your speech.
+            {t.practice.description}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -130,7 +132,7 @@ export default function ReadingClient() {
             ) : (
               <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">
                 <BookText className="w-12 h-12" />
-                <p>Generate a text to start your reading practice.</p>
+                <p>{t.practice.emptyState}</p>
               </div>
             )}
           </Card>
@@ -141,7 +143,7 @@ export default function ReadingClient() {
               className="w-full"
             >
               <Mic className="mr-2" />
-              Start Recording
+              {t.practice.startRecording}
             </Button>
           ) : (
             <Button
@@ -150,22 +152,22 @@ export default function ReadingClient() {
               className="w-full"
             >
               <MicOff className="mr-2" />
-              Stop Recording
+              {t.practice.stopRecording}
             </Button>
           )}
            {isRecording && (
               <Alert variant="destructive" className="animate-pulse">
                 <Mic className="h-4 w-4" />
-                <AlertTitle>Recording in progress...</AlertTitle>
+                <AlertTitle>{t.practice.recordingInProgress.title}</AlertTitle>
                 <AlertDescription>
-                  Click "Stop Recording" when you're finished.
+                  {t.practice.recordingInProgress.description}
                 </AlertDescription>
               </Alert>
             )}
         </CardContent>
         <CardFooter>
           <form action={generationAction} className='w-full'>
-             <input type="hidden" name="language" value="English" />
+             <input type="hidden" name="language" value={language} />
              <input type="hidden" name="level" value="intermediate" />
              <GenerateButton />
           </form>
@@ -174,16 +176,16 @@ export default function ReadingClient() {
 
       <Card className="flex flex-col">
         <CardHeader>
-          <CardTitle>AI Speech Analysis</CardTitle>
+          <CardTitle>{t.analysis.title}</CardTitle>
           <CardDescription>
-            Your pronunciation and fluency feedback will appear here.
+            {t.analysis.description}
           </CardDescription>
         </CardHeader>
         <CardContent className="flex-1 space-y-6">
           {isAnalysisPending ? (
              <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">
               <LoaderCircle className="w-12 h-12 animate-spin text-primary" />
-              <p>Analyzing your speech...</p>
+              <p>{t.analysis.loading}</p>
             </div>
           ) : analysisState?.summary ? (
             <div
@@ -194,7 +196,7 @@ export default function ReadingClient() {
             <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">
               <Wand2 className="w-12 h-12" />
               <p className="max-w-xs">
-                Your analysis will appear here after you record yourself.
+                {t.analysis.emptyState}
               </p>
             </div>
           )}

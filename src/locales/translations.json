@@ -70,7 +70,25 @@
       }
     },
     "reading": {
-      "title": "Reading Practice"
+      "title": "Reading Practice",
+      "generateButton": "Generate New Text",
+      "practice": {
+        "title": "Reading Practice",
+        "description": "Read the text below and record yourself. The AI will analyze your speech.",
+        "emptyState": "Generate a text to start your reading practice.",
+        "startRecording": "Start Recording",
+        "stopRecording": "Stop Recording",
+        "recordingInProgress": {
+          "title": "Recording in progress...",
+          "description": "Click \"Stop Recording\" when you're finished."
+        }
+      },
+      "analysis": {
+        "title": "AI Speech Analysis",
+        "description": "Your pronunciation and fluency feedback will appear here.",
+        "loading": "Analyzing your speech...",
+        "emptyState": "Your analysis will appear here after you record yourself."
+      }
     },
     "schedule": {
       "title": "Plan Your Day",
@@ -200,7 +218,25 @@
       }
     },
     "reading": {
-      "title": "Praktyka czytania"
+      "title": "Praktyka czytania",
+      "generateButton": "Generuj nowy tekst",
+      "practice": {
+        "title": "Praktyka czytania",
+        "description": "Przeczytaj poniższy tekst i nagraj siebie. AI przeanalizuje Twoją mowę.",
+        "emptyState": "Wygeneruj tekst, aby rozpocząć praktykę czytania.",
+        "startRecording": "Rozpocznij nagrywanie",
+        "stopRecording": "Zatrzymaj nagrywanie",
+        "recordingInProgress": {
+          "title": "Nagrywanie w toku...",
+          "description": "Kliknij \"Zatrzymaj nagrywanie\", gdy skończysz."
+        }
+      },
+      "analysis": {
+        "title": "Analiza mowy AI",
+        "description": "Twoja opinia na temat wymowy i płynności pojawi się tutaj.",
+        "loading": "Analizowanie mowy...",
+        "emptyState": "Twoja analiza pojawi się tutaj po nagraniu siebie."
+      }
     },
     "schedule": {
       "title": "Zaplanuj swój dzień",
@@ -330,7 +366,25 @@
       }
     },
     "reading": {
-      "title": "Практика читання"
+      "title": "Практика читання",
+      "generateButton": "Згенерувати новий текст",
+      "practice": {
+        "title": "Практика читання",
+        "description": "Прочитайте текст нижче та запишіть себе. ШІ проаналізує ваше мовлення.",
+        "emptyState": "Згенеруйте текст, щоб почати практику читання.",
+        "startRecording": "Почати запис",
+        "stopRecording": "Зупинити запис",
+        "recordingInProgress": {
+          "title": "Йде запис...",
+          "description": "Натисніть \"Зупинити запис\", коли закінчите."
+        }
+      },
+      "analysis": {
+        "title": "Аналіз мовлення ШІ",
+        "description": "Ваш відгук про вимову та плавність з'явиться тут.",
+        "loading": "Аналіз вашого мовлення...",
+        "emptyState": "Ваш аналіз з'явиться тут після того, як ви запишете себе."
+      }
     },
     "schedule": {
       "title": "Сплануйте свій день",
