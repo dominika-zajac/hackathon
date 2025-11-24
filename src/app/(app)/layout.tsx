@@ -1,6 +1,7 @@
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { Logo } from '@/components/logo';
 import { MainNav } from '@/components/main-nav';
+import { Settings } from '@/components/settings';
 import { UserProfile } from '@/components/user-profile';
 import {
   Sidebar,
@@ -9,6 +10,7 @@ import {
   SidebarHeader,
   SidebarInset,
   SidebarProvider,
+  SidebarSeparator,
 } from '@/components/ui/sidebar';
 import { LanguageProvider } from '@/context/language-context';
 
@@ -24,6 +26,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <MainNav />
           </SidebarContent>
           <SidebarFooter>
+            <SidebarSeparator />
+            <Settings />
             <UserProfile />
           </SidebarFooter>
         </Sidebar>

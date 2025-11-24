@@ -124,6 +124,17 @@
     "user": {
       "name": "Demo User",
       "email": "user@example.com"
+    },
+    "settings": {
+      "title": "Settings",
+      "languageLevel": {
+        "placeholder": "Select language level",
+        "levels": {
+          "beginner": "Beginner",
+          "intermediate": "Intermediate",
+          "advanced": "Advanced"
+        }
+      }
     }
   },
   "pl": {
@@ -250,6 +261,17 @@
     "user": {
       "name": "Użytkownik Demo",
       "email": "user@example.com"
+    },
+    "settings": {
+      "title": "Ustawienia",
+      "languageLevel": {
+        "placeholder": "Wybierz poziom języka",
+        "levels": {
+          "beginner": "Początkujący",
+          "intermediate": "Średniozaawansowany",
+          "advanced": "Zaawansowany"
+        }
+      }
     }
   },
   "ua": {
@@ -376,6 +398,17 @@
     "user": {
       "name": "Демо-користувач",
       "email": "user@example.com"
+    },
+    "settings": {
+      "title": "Налаштування",
+      "languageLevel": {
+        "placeholder": "Виберіть рівень мови",
+        "levels": {
+          "beginner": "Початківець",
+          "intermediate": "Середній",
+          "advanced": "Просунутий"
+        }
+      }
     }
   }
 }
