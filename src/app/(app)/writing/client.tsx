@@ -81,7 +81,7 @@ function AnalyzeButton() {
 }
 
 export default function WritingClient() {
-  const { getTranslations } = useLanguage();
+  const { language, getTranslations } = useLanguage();
   const t = getTranslations();
   const { toast } = useToast();
 
@@ -191,7 +191,7 @@ export default function WritingClient() {
                   name="originalText"
                   value={generationState?.dictationText || ''}
                 />
-                <input type="hidden" name="language" value="English" />
+                <input type="hidden" name="language" value={language} />
                 <FormField
                   control={form.control}
                   name="userText"

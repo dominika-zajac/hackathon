@@ -155,19 +155,19 @@ User's Text:
 {{{userText}}}
 
 Your task is to return an HTML string with a complete analysis. The response should have three parts:
-1.  **General Assessment**: Start with a <h4> titled "General Assessment". Write a brief, encouraging summary of the user's performance.
+1.  **General Assessment**: Start with a <h4> titled "General Assessment". Write a brief, encouraging summary of the user's performance in {{{language}}}.
 2.  **Detailed Analysis**: Follow with a <h4> titled "Detailed Analysis". Display the user's text, marking mistakes clearly:
     - Use a <del> tag for incorrect or extra words.
     - Use an <ins> tag for missing words or corrections.
     - Keep correct words as they are, wrapped in a <p> tag.
-3.  **Corrections**: Finally, include a <h4> titled "Corrections". Provide a bulleted list (<ul> with <li>) explaining each mistake and how to correct it. If there are no mistakes, state that.
+3.  **Corrections**: Finally, include a <h4> titled "Corrections". Provide a bulleted list (<ul> with <li>) in {{{language}}} explaining each mistake and how to correct it. If there are no mistakes, state that.
 
 Ensure the entire response is a single block of valid HTML that can be rendered directly.
 
-Example for a text with mistakes:
+Example for a text with mistakes (if language is English):
 "<h4>General Assessment</h4><p>Good job! You've captured most of the text correctly. There are just a few minor points to work on, mainly with articles and verb tenses.</p><h4>Detailed Analysis</h4><p><del>Helo</del><ins>Hello</ins> world, this <del>was</del><ins>is a</ins> test.</p><h4>Corrections</h4><ul><li>'Helo' should be 'Hello'.</li><li>'was' should be 'is a'.</li></ul>"
 
-Example for a perfect text:
+Example for a perfect text (if language is English):
 "<h4>General Assessment</h4><p>Excellent work! Your transcription is perfect. You've correctly captured every word, including punctuation and capitalization.</p><h4>Detailed Analysis</h4><p>Hello world, this is a test.</p><h4>Corrections</h4><ul><li>No mistakes found. Well done!</li></ul>"
 `,
 });
