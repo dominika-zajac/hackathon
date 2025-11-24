@@ -37,7 +37,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
 import { Textarea } from '@/components/ui/textarea';
 import { useLanguage } from '@/context/language-context';
@@ -86,7 +85,7 @@ export default function WritingClient() {
   const t = getTranslations();
   const { toast } = useToast();
 
-  const [generationState, generationAction, isGenerationPending] =
+  const [generationState, generationAction] =
     useActionState<GenerationState, FormData>(getDictation, null);
   const [analysisState, analysisAction, isAnalysisPending] =
     useActionState<AnalysisState, FormData>(getAnalysis, null);
@@ -241,7 +240,7 @@ export default function WritingClient() {
             </div>
           ) : analysisState?.analysis ? (
             <div
-              className="p-4 text-base border rounded-md bg-secondary"
+              className="prose prose-sm dark:prose-invert max-w-none space-y-4 text-base"
               dangerouslySetInnerHTML={{ __html: analysisState.analysis }}
             />
           ) : (

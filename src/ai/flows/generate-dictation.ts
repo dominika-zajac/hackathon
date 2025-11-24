@@ -154,14 +154,21 @@ Original Text:
 User's Text:
 {{{userText}}}
 
-Your task is to return an HTML string that shows the user's text with mistakes clearly marked.
-- Use a <del> tag for incorrect or extra words.
-- Use an <ins> tag for missing words or corrections.
-- Keep correct words as they are.
-- Ensure the entire response is a single block of HTML that can be rendered.
+Your task is to return an HTML string with a complete analysis. The response should have three parts:
+1.  **General Assessment**: Start with a <h4> titled "General Assessment". Write a brief, encouraging summary of the user's performance.
+2.  **Detailed Analysis**: Follow with a <h4> titled "Detailed Analysis". Display the user's text, marking mistakes clearly:
+    - Use a <del> tag for incorrect or extra words.
+    - Use an <ins> tag for missing words or corrections.
+    - Keep correct words as they are, wrapped in a <p> tag.
+3.  **Corrections**: Finally, include a <h4> titled "Corrections". Provide a bulleted list (<ul> with <li>) explaining each mistake and how to correct it. If there are no mistakes, state that.
 
-Example: If the original is "Hello world, this is a test." and the user wrote "Helo world this was test.", the output should be:
-"<p><del>Helo</del><ins>Hello</ins> world, this <del>was</del><ins>is a</ins> test.</p>"
+Ensure the entire response is a single block of valid HTML that can be rendered directly.
+
+Example for a text with mistakes:
+"<h4>General Assessment</h4><p>Good job! You've captured most of the text correctly. There are just a few minor points to work on, mainly with articles and verb tenses.</p><h4>Detailed Analysis</h4><p><del>Helo</del><ins>Hello</ins> world, this <del>was</del><ins>is a</ins> test.</p><h4>Corrections</h4><ul><li>'Helo' should be 'Hello'.</li><li>'was' should be 'is a'.</li></ul>"
+
+Example for a perfect text:
+"<h4>General Assessment</h4><p>Excellent work! Your transcription is perfect. You've correctly captured every word, including punctuation and capitalization.</p><h4>Detailed Analysis</h4><p>Hello world, this is a test.</p><h4>Corrections</h4><ul><li>No mistakes found. Well done!</li></ul>"
 `,
 });
 
