@@ -5,3 +5,4 @@ config();
 import '@/ai/flows/personalize-reading-suggestions.ts';
 import '@/ai/flows/summarize-video-feedback.ts';
 import '@/ai/flows/generate-dictation.ts';
+import '@/ai/flows/generate-reading-text.ts';

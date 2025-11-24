@@ -9,7 +9,7 @@
     "navigation": {
       "videoFeedback": "Speech Evaluator",
       "writing": "Dictation Practice",
-      "reading": "Reading",
+      "reading": "Reading Practice",
       "schedule": "Schedule",
       "callPractice": "Call practice",
       "settings": "Settings",
@@ -70,28 +70,7 @@
       }
     },
     "reading": {
-      "title": "Reading Suggestions",
-      "personalizeReading": {
-        "title": "Personalize Your Reading",
-        "description": "Tell us about your current activity and past reads to get tailored suggestions."
-      },
-      "currentActivity": {
-        "label": "Current Activity",
-        "placeholder": "e.g., 'Researching modern web development techniques...'",
-        "description": "What are you currently focused on or learning about?"
-      },
-      "readingHistory": {
-        "label": "Reading History & Preferences",
-        "placeholder": "e.g., 'I enjoy articles on AI, design systems, and serverless architecture.'",
-        "description": "What topics or authors have you enjoyed in the past?"
-      },
-      "getSuggestionsButton": "Get Suggestions",
-      "suggestedForYou": {
-        "title": "Suggested For You",
-        "description": "Based on your input, here are some reads you might enjoy.",
-        "reasoning": "Reasoning",
-        "emptyState": "Your personalized reading list will appear here."
-      }
+      "title": "Reading Practice"
     },
     "schedule": {
       "title": "Plan Your Day",
@@ -160,7 +139,7 @@
     "navigation": {
       "videoFeedback": "Ewaluator mowy",
       "writing": "Praktyka dyktanda",
-      "reading": "Czytanie",
+      "reading": "Praktyka czytania",
       "schedule": "Harmonogram",
       "callPractice": "Praktyka rozmów",
       "settings": "Ustawienia",
@@ -221,28 +200,7 @@
       }
     },
     "reading": {
-      "title": "Sugestie czytelnicze",
-      "personalizeReading": {
-        "title": "Spersonalizuj swoje czytanie",
-        "description": "Opowiedz nam o swojej obecnej aktywności i poprzednich lekturach, aby otrzymać dopasowane sugestie."
-      },
-      "currentActivity": {
-        "label": "Obecna aktywność",
-        "placeholder": "np. „Badanie nowoczesnych technik tworzenia stron internetowych...”",
-        "description": "Na czym się obecnie koncentrujesz lub czego się uczysz?"
-      },
-      "readingHistory": {
-        "label": "Historia czytania i preferencje",
-        "placeholder": "np. „Lubię artykuły o sztucznej inteligencji, systemach projektowych i architekturze bezserwerowej”",
-        "description": "Jakie tematy lub autorzy podobały Ci się w przeszłości?"
-      },
-      "getSuggestionsButton": "Pobierz sugestie",
-      "suggestedForYou": {
-        "title": "Sugerowane dla Ciebie",
-        "description": "Na podstawie Twoich danych wejściowych, oto kilka lektur, które mogą Ci się spodobać.",
-        "reasoning": "Uzasadnienie",
-        "emptyState": "Twoja spersonalizowana lista lektur pojawi się tutaj."
-      }
+      "title": "Praktyka czytania"
     },
     "schedule": {
       "title": "Zaplanuj swój dzień",
@@ -311,7 +269,7 @@
     "navigation": {
       "videoFeedback": "Оцінювач мовлення",
       "writing": "Практика диктанту",
-      "reading": "Читання",
+      "reading": "Практика читання",
       "schedule": "Розклад",
       "callPractice": "Практика дзвінків",
       "settings": "Налаштування",
@@ -372,28 +330,7 @@
       }
     },
     "reading": {
-      "title": "Пропозиції до читання",
-      "personalizeReading": {
-        "title": "Персоналізуйте своє читання",
-        "description": "Розкажіть нам про свою поточну діяльність та минулі прочитання, щоб отримати індивідуальні пропозиції."
-      },
-      "currentActivity": {
-        "label": "Поточна діяльність",
-        "placeholder": "напр., 'Дослідження сучасних технік веб-розробки...'",
-        "description": "На чому ви зараз зосереджені або що вивчаєте?"
-      },
-      "readingHistory": {
-        "label": "Історія читання та вподобання",
-        "placeholder": "напр., 'Мені подобаються статті про ШІ, системи дизайну та безсерверну архітектуру.'",
-        "description": "Які теми чи автори вам сподобалися в минулому?"
-      },
-      "getSuggestionsButton": "Отримати пропозиції",
-      "suggestedForYou": {
-        "title": "Запропоновано для вас",
-        "description": "На основі ваших даних, ось кілька матеріалів, які можуть вам сподобатися.",
-        "reasoning": "Обґрунтування",
-        "emptyState": "Ваш персоналізований список для читання з’явиться тут."
-      }
+      "title": "Практика читання"
     },
     "schedule": {
       "title": "Сплануйте свій день",

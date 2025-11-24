@@ -1,14 +1,18 @@
 
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { BookOpen, Library, LoaderCircle } from 'lucide-react';
-import React, { useActionState } from 'react';
+import {
+  LoaderCircle,
+  Mic,
+  MicOff,
+  BookText,
+  Wand2,
+  RefreshCcw,
+} from 'lucide-react';
+import React, { useActionState, useEffect, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
-import { getSuggestions, type State } from './actions';
+import { getAnalysis, getText, type AnalysisState, type GenerationState } from './actions';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -18,164 +22,190 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
 import { useLanguage } from '@/context/language-context';
 import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
-const readingSchema = z.object({
-  userActivity: z
-    .string()
-    .min(10, 'Please describe your activity in at least 10 characters.'),
-  readingHistory: z
-    .string()
-    .min(10, 'Please describe your history in at least 10 characters.'),
-});
-
-type ReadingFormValues = z.infer<typeof readingSchema>;
-
-function SubmitButton() {
+function GenerateButton() {
   const { pending } = useFormStatus();
-  const { getTranslations } = useLanguage();
-  const t = getTranslations();
   return (
     <Button type="submit" disabled={pending} className="w-full">
-      {pending && <LoaderCircle className="mr-2 animate-spin" />}
-      {t.reading.getSuggestionsButton}
+      {pending ? (
+        <LoaderCircle className="mr-2 animate-spin" />
+      ) : (
+        <RefreshCcw className="mr-2" />
+      )}
+      Generate New Text
     </Button>
   );
 }
 
 export default function ReadingClient() {
-  const { getTranslations } = useLanguage();
+  const { language, getTranslations } = useLanguage();
   const t = getTranslations();
-  const [state, formAction] = useActionState<State, FormData>(
-    getSuggestions,
-    null
-  );
   const { toast } = useToast();
 
-  const form = useForm<ReadingFormValues>({
-    resolver: zodResolver(readingSchema),
-    defaultValues: {
-      userActivity: '',
-      readingHistory: '',
-    },
-  });
+  const [generationState, generationAction, isGenerationPending] =
+    useActionState<GenerationState, FormData>(getText, null);
+  const [analysisState, analysisAction, isAnalysisPending] =
+    useActionState<AnalysisState, FormData>(getAnalysis, null);
 
-  React.useEffect(() => {
-    if (state?.error) {
+  const [isRecording, setIsRecording] = useState(false);
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+
+  const handleStartRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorderRef.current = new MediaRecorder(stream);
+      const chunks: BlobPart[] = [];
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        chunks.push(event.data);
+      };
+      mediaRecorderRef.current.onstop = () => {
+        const blob = new Blob(chunks, { type: 'audio/webm' });
+        setAudioBlob(blob);
+      };
+      mediaRecorderRef.current.start();
+      setIsRecording(true);
+    } catch (error) {
+      console.error('Error starting recording:', error);
       toast({
         variant: 'destructive',
-        title: 'An error occurred',
-        description: state.error,
+        title: 'Recording Error',
+        description: 'Could not start recording. Please check microphone permissions.',
       });
     }
-  }, [state, toast]);
+  };
+
+  const handleStopRecording = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop();
+      // Stop all media tracks to turn off the microphone light
+      mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
+      setIsRecording(false);
+    }
+  };
+
+  useEffect(() => {
+    if (audioBlob) {
+      const formData = new FormData();
+      formData.append('media', audioBlob, 'recording.webm');
+      formData.append('language', language);
+      analysisAction(formData);
+      setAudioBlob(null);
+    }
+  }, [audioBlob, analysisAction, language]);
+
+  useEffect(() => {
+    if (generationState?.error) {
+      toast({ variant: 'destructive', title: 'Generation Error', description: generationState.error });
+    }
+  }, [generationState, toast]);
+
+  useEffect(() => {
+    if (analysisState?.error) {
+      toast({ variant: 'destructive', title: 'Analysis Error', description: analysisState.error });
+    }
+  }, [analysisState, toast]);
+
+  useEffect(() => {
+    // Generate text on initial load
+    const form = new FormData();
+    form.append('language', 'English');
+    // This should ideally come from user settings
+    form.append('level', 'intermediate');
+    generationAction(form);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle>{t.reading.personalizeReading.title}</CardTitle>
+          <CardTitle>Reading Practice</CardTitle>
           <CardDescription>
-            {t.reading.personalizeReading.description}
+            Read the text below and record yourself. The AI will analyze your speech.
           </CardDescription>
         </CardHeader>
-        <Form {...form}>
-          <form action={formAction} className="space-y-4">
-            <CardContent className="space-y-4">
-              <FormField
-                control={form.control}
-                name="userActivity"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t.reading.currentActivity.label}</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder={t.reading.currentActivity.placeholder}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t.reading.currentActivity.description}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="readingHistory"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t.reading.readingHistory.label}</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder={t.reading.readingHistory.placeholder}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t.reading.readingHistory.description}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-            <CardFooter>
-              <SubmitButton />
-            </CardFooter>
+        <CardContent className="space-y-4">
+          <Card className="min-h-[200px] p-4 bg-muted/50">
+            {isGenerationPending ? (
+              <div className="flex items-center justify-center h-full">
+                <LoaderCircle className="animate-spin text-primary" />
+              </div>
+            ) : generationState?.text ? (
+              <p className="text-base leading-relaxed">{generationState.text}</p>
+            ) : (
+              <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">
+                <BookText className="w-12 h-12" />
+                <p>Generate a text to start your reading practice.</p>
+              </div>
+            )}
+          </Card>
+          {!isRecording ? (
+            <Button
+              onClick={handleStartRecording}
+              disabled={!generationState?.text || isRecording || isAnalysisPending}
+              className="w-full"
+            >
+              <Mic className="mr-2" />
+              Start Recording
+            </Button>
+          ) : (
+            <Button
+              onClick={handleStopRecording}
+              variant="destructive"
+              className="w-full"
+            >
+              <MicOff className="mr-2" />
+              Stop Recording
+            </Button>
+          )}
+           {isRecording && (
+              <Alert variant="destructive" className="animate-pulse">
+                <Mic className="h-4 w-4" />
+                <AlertTitle>Recording in progress...</AlertTitle>
+                <AlertDescription>
+                  Click "Stop Recording" when you're finished.
+                </AlertDescription>
+              </Alert>
+            )}
+        </CardContent>
+        <CardFooter>
+          <form action={generationAction} className='w-full'>
+             <input type="hidden" name="language" value="English" />
+             <input type="hidden" name="level" value="intermediate" />
+             <GenerateButton />
           </form>
-        </Form>
+        </CardFooter>
       </Card>
 
       <Card className="flex flex-col">
         <CardHeader>
-          <CardTitle>{t.reading.suggestedForYou.title}</CardTitle>
+          <CardTitle>AI Speech Analysis</CardTitle>
           <CardDescription>
-            {t.reading.suggestedForYou.description}
+            Your pronunciation and fluency feedback will appear here.
           </CardDescription>
         </CardHeader>
         <CardContent className="flex-1 space-y-6">
-          {state?.suggestions ? (
-            <div>
-              <ul className="space-y-3">
-                {state.suggestions.map((suggestion, index) => (
-                  <li
-                    key={index}
-                    className="flex items-start gap-3 p-3 text-sm rounded-md bg-secondary"
-                  >
-                    <BookOpen className="w-5 h-5 mt-1 shrink-0 text-primary" />
-                    <span>{suggestion}</span>
-                  </li>
-                ))}
-              </ul>
-              {state.reasoning && (
-                <div className="p-4 mt-6 text-sm border-l-4 rounded-r-md bg-secondary border-primary">
-                  <p className="font-semibold">
-                    {t.reading.suggestedForYou.reasoning}
-                  </p>
-                  <p className="mt-1 text-muted-foreground">
-                    {state.reasoning}
-                  </p>
-                </div>
-              )}
+          {isAnalysisPending ? (
+             <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">
+              <LoaderCircle className="w-12 h-12 animate-spin text-primary" />
+              <p>Analyzing your speech...</p>
             </div>
+          ) : analysisState?.summary ? (
+            <div
+              className="prose prose-sm dark:prose-invert max-w-none space-y-4 text-base"
+              dangerouslySetInnerHTML={{ __html: analysisState.summary }}
+            />
           ) : (
             <div className="h-full flex flex-col items-center justify-center space-y-4 text-center text-muted-foreground">
-              <Library className="w-12 h-12" />
+              <Wand2 className="w-12 h-12" />
               <p className="max-w-xs">
-                {t.reading.suggestedForYou.emptyState}
+                Your analysis will appear here after you record yourself.
               </p>
             </div>
           )}
