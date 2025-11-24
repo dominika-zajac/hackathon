@@ -159,14 +159,7 @@ export default function WritingClient() {
             </CardDescription>
           </CardHeader>
           <Form {...form}>
-            <form
-              action={analysisAction}
-              onSubmit={(evt) => {
-                form.handleSubmit(() => {
-                  analysisAction(evt.currentTarget);
-                })(evt);
-              }}
-            >
+            <form action={analysisAction}>
               <CardContent className="space-y-6">
                 {generationState?.audioDataUri && (
                   <div className="space-y-4 pt-4">
@@ -177,8 +170,9 @@ export default function WritingClient() {
                       className="w-full"
                     />
                     <div className="space-y-2">
-                      <FormLabel>{t.writing.speed.label}</FormLabel>
+                      <Label htmlFor="speed">{t.writing.speed.label}</Label>
                       <Slider
+                        id="speed"
                         defaultValue={[1]}
                         min={0.5}
                         max={1.5}
