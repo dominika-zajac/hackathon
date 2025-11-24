@@ -110,17 +110,6 @@ export default function ReadingClient() {
     }
   }, [analysisState, toast]);
 
-  useEffect(() => {
-    // Generate text on initial load
-    const form = new FormData();
-    form.append('language', 'English');
-    // This should ideally come from user settings
-    form.append('level', 'intermediate');
-    generationAction(form);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <Card>
